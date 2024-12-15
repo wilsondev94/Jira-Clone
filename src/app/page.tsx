@@ -3,10 +3,7 @@ import { Input } from "@/components/ui/input";
 
 export default function Home() {
   return (
-    <div
-      className="
-   "
-    >
+    <div>
       <Button>Primary</Button>
       <Button variant="secondary">Secondary</Button>
       <Button variant="destructive" size="sm">

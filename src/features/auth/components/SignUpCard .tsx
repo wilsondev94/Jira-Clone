@@ -25,15 +25,14 @@ import { Input } from "@/components/ui/input";
 
 import Link from "next/link";
 import { useForm } from "react-hook-form";
-const formSchema = z.object({
-  name: z.string().trim().min(1, "Field must contain at least 1 character"),
-  email: z.string().email(),
-  password: z.string().min(8, "Field must contain at least 8 characters"),
-});
+import { signUpSchema } from "../schemas";
+import { useSignup } from "../apiCustomHooks/useSignup";
 
 export function SignUpCrad() {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const { mutate } = useSignup();
+
+  const form = useForm<z.infer<typeof signUpSchema>>({
+    resolver: zodResolver(signUpSchema),
     defaultValues: {
       name: "",
       email: "",
@@ -41,8 +40,8 @@ export function SignUpCrad() {
     },
   });
 
-  function onSumit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  function onSumit(values: z.infer<typeof signUpSchema>) {
+    mutate({ json: values });
   }
 
   return (
@@ -143,6 +142,18 @@ export function SignUpCrad() {
           <FaGithub className="mr-2 size-5" />
           Login with Github
         </Button>
+      </CardContent>
+
+      <div className="px-7">
+        <DottedSeparator />
+      </div>
+      <CardContent className="p-7 flex items-center justify-center">
+        <p>
+          Already have an account?
+          <Link href="/sign-in">
+            <span className="text-blue-700">&nbsp;Login</span>
+          </Link>
+        </p>
       </CardContent>
     </Card>
   );
