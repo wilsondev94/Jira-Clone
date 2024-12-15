@@ -1,3 +1,5 @@
+"use client";
+
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 
@@ -28,7 +30,7 @@ import { useForm } from "react-hook-form";
 import { signUpSchema } from "../schemas";
 import { useSignup } from "../apiCustomHooks/useSignup";
 
-export function SignUpCrad() {
+export function SignUpCard() {
   const { mutate } = useSignup();
 
   const form = useForm<z.infer<typeof signUpSchema>>({
@@ -115,7 +117,7 @@ export function SignUpCrad() {
             />
 
             <Button disabled={false} size="lg" className="w-full">
-              Login
+              Register
             </Button>
           </form>
         </Form>

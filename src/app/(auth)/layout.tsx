@@ -21,7 +21,12 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
     >
       <div className="mx-auto max-w-screen-2xl p-4">
         <nav className="flex justify-between items-center">
-          <Image src="/icon/jiraclone.svg" height={30} width={30} alt="logo" />
+          <Image
+            src="./icon/jiraclone2.svg"
+            height={30}
+            width={30}
+            alt="logo"
+          />
           <Button variant="secondary" className="">
             <Link href={isSignIn ? "/sign-up" : "/sign-in"}>
               {isSignIn ? "Sign up" : "Login"}
