@@ -1,7 +1,7 @@
 import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
 import { setCookie, deleteCookie } from "hono/cookie";
-import { loginSchema, signUpSchema } from "../schemas";
+import { loginSchema, signUpSchema } from "../../../lib/schemas";
 import { createAdminClient } from "@/lib/appwriteConfig";
 import { ID } from "node-appwrite";
 import { AUTH_COOKIE } from "../constant";

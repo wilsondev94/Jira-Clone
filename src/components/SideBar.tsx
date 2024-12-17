@@ -2,6 +2,7 @@ import { DottedSeparator } from "@/components/DottedSeparator";
 import Image from "next/image";
 import Link from "next/link";
 import { Navigation } from "./Nvigation";
+import WorkspaceSwitcher from "./WorkspaceSwitcher";
 
 export function SideBar() {
   return (
@@ -9,6 +10,9 @@ export function SideBar() {
       <Link href="/">
         <Image src="./icon/jiraclone2.svg" height={35} width={35} alt="logo" />
       </Link>
+      <DottedSeparator clasName="my-4 " />
+
+      <WorkspaceSwitcher />
       <DottedSeparator clasName="my-4 " />
 
       <Navigation />

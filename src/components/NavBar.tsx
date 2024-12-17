@@ -1,5 +1,5 @@
 import { MobileSideBar } from "./MobileSideBar";
-import { UserButton } from "./UserButton";
+import { UserButton } from "../features/auth/components/UserButton";
 
 export function NavBar() {
   return (

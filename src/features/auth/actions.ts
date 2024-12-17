@@ -1,13 +1,14 @@
 "use server";
 
-import { Account, Client } from "node-appwrite";
-import { ENDPOINT, PROJECT_ID } from "@/lib/appwriteConfig";
+
 import { cookies } from "next/headers";
+import { Account, Client } from "node-appwrite";
 import { AUTH_COOKIE } from "./constant";
+import { ENDPOINT, PROJECT_ID } from "@/appwrite-config";
 
 export async function getCurrent() {
   try {
-    const client = new Client().setEndpoint(ENDPOINT!).setProject(PROJECT_ID!);
+    const client = new Client().setEndpoint(ENDPOINT).setProject(PROJECT_ID);
 
     const session = await cookies().get(AUTH_COOKIE);
 

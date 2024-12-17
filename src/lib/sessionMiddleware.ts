@@ -14,8 +14,8 @@ import {
   type Users as UsersType,
 } from "node-appwrite";
 
-import { ENDPOINT, PROJECT_ID } from "./appwriteConfig";
 import { AUTH_COOKIE } from "@/features/auth/constant";
+import { ENDPOINT, PROJECT_ID } from "@/appwrite-config";
 
 type SessionMidddlewareProps = {
   Variables: {
@@ -29,7 +29,7 @@ type SessionMidddlewareProps = {
 
 export const sessionMiddleware = createMiddleware<SessionMidddlewareProps>(
   async (c, next) => {
-    const client = new Client().setEndpoint(ENDPOINT!).setProject(PROJECT_ID!);
+    const client = new Client().setEndpoint(ENDPOINT).setProject(PROJECT_ID);
 
     const session = getCookie(c, AUTH_COOKIE);
 

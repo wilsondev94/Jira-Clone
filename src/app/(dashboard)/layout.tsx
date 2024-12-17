@@ -1,5 +1,5 @@
-import { NavBar } from "@/features/auth/components/NavBar";
-import { SideBar } from "@/features/auth/components/SideBar";
+import { NavBar } from "@/components/NavBar";
+import { SideBar } from "@/components/SideBar";
 
 interface DashBoardProps {
   children: React.ReactNode;

@@ -27,7 +27,7 @@ import { Input } from "@/components/ui/input";
 
 import Link from "next/link";
 import { useForm } from "react-hook-form";
-import { signUpSchema } from "../schemas";
+import { signUpSchema } from "../../../lib/schemas";
 import { useSignup } from "../apiCustomHooks/useSignup";
 
 export function SignUpCard() {
