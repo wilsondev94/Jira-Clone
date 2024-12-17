@@ -28,7 +28,7 @@ import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { signUpSchema } from "../../../lib/schemas";
-import { useSignup } from "../apiCustomHooks/useSignup";
+import { useSignup } from "../authCustomHooks/useSignup";
 
 export function SignUpCard() {
   const { mutate } = useSignup();

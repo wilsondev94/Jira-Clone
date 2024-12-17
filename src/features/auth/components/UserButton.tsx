@@ -1,7 +1,7 @@
 "use client";
 
 import { Loader, LogOut } from "lucide-react";
-import { useCurrent } from "../apiCustomHooks/useCurrent";
+import { useCurrent } from "../authCustomHooks/useCurrent";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { DropdownMenu } from "@radix-ui/react-dropdown-menu";
 import {
@@ -10,7 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { DottedSeparator } from "@/components/DottedSeparator";
-import { useLogout } from "../apiCustomHooks/useLogout";
+import { useLogout } from "../authCustomHooks/useLogout";
 
 export function UserButton() {
   const { mutate: logout } = useLogout();

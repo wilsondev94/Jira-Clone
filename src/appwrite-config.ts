@@ -9,4 +9,7 @@ export const DATABASE_ID = process.env.NEXT_PUBLIC_DATABASE_ID!;
 export const WORKSPACES_COLLECTION_ID =
   process.env.NEXT_PUBLIC_WORKSPACES_COLLECTION_ID!;
 
+export const MEMBERS_COLLECTION_ID =
+  process.env.NEXT_PUBLIC_MEMBERS_COLLECTION_ID!;
+
 export const BUCKET_ID = process.env.NEXT_PUBLIC_BUCKET_ID!;

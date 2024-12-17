@@ -20,7 +20,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { loginSchema } from "../../../lib/schemas";
-import { useLogin } from "../apiCustomHooks/useLogin";
+import { useLogin } from "../authCustomHooks/useLogin";
 
 export function SignInCard() {
   const { mutate: login, isPending } = useLogin();
