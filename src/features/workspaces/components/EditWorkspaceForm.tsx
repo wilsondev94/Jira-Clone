@@ -16,7 +16,7 @@ import { Input } from "@/components/ui/input";
 import { UpdateworkspaceSchema } from "@/lib/schemas";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowLeft, ImageIcon } from "lucide-react";
+import { ArrowLeft, CopyIcon, ImageIcon } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
@@ -26,6 +26,8 @@ import { useUpdateWorkspace } from "../customWorkspacesApiHook/useUpdateWorkspac
 import { Workspace } from "../type";
 import { useConfirmationModal } from "@/components/ConfirmationModal";
 import { useDeleteWorkspace } from "../customWorkspacesApiHook/useDeleteWorkspace";
+import { toast } from "sonner";
+import { useResetInviteCode } from "../customWorkspacesApiHook/useResetInviteCode";
 
 interface WorkspaceFormProps {
   onCancel?: () => void;
@@ -44,9 +46,17 @@ export function EditWorkspaceForm({
   const { mutate: deleteWorkspace, isPending: isDeletingWorkspace } =
     useDeleteWorkspace();
 
+  const { mutate: resetInviteCode, isPending: isResetingInviteCode } =
+    useResetInviteCode();
+
   const [ConfirmationModal, confirmDelete] = useConfirmationModal(
     "Delete workspace",
     "This action cannot be undone",
+    "destructive"
+  );
+  const [ResetModal, confirmReset] = useConfirmationModal(
+    "Reset invite link",
+    "this will change the current invite link.",
     "destructive"
   );
 
@@ -64,12 +74,29 @@ export function EditWorkspaceForm({
 
     deleteWorkspace(
       {
+        form: undefined,
         param: { workspaceId: initialValues.$id },
       },
 
       {
         onSuccess: () => {
           router.push("/");
+        },
+      }
+    );
+  }
+  async function handleReset() {
+    const ok = await confirmReset();
+    if (!ok) return;
+
+    resetInviteCode(
+      {
+        param: { workspaceId: initialValues.$id },
+        form: undefined,
+      },
+      {
+        onSuccess: () => {
+          router.refresh();
         },
       }
     );
@@ -98,8 +125,18 @@ export function EditWorkspaceForm({
     if (file) form.setValue("image", file);
   }
 
+  const inviteLink = `${window.location.origin}/worspaces/${initialValues.$id}/join/${initialValues.inviteCode}`;
+
+  const handleCopyInviteLink = () => {
+    navigator.clipboard
+      .writeText(inviteLink)
+      .then(() => toast.success("Invite link copied."));
+  };
+
   return (
     <div className="flex flex-col gap-y-4">
+      <ConfirmationModal />
+      <ResetModal />
       <Card className="w-full h-full border-none shadow-none">
         <CardHeader className="flex flex-row items-center gap-x-4 p-7 skew-y-0">
           <Button
@@ -218,7 +255,11 @@ export function EditWorkspaceForm({
                 >
                   Cancle
                 </Button>
-                <Button type="submit" size="lg" disabled={isUpdatingWorkspace}>
+                <Button
+                  type="submit"
+                  size="lg"
+                  disabled={isUpdatingWorkspace || isDeletingWorkspace}
+                >
                   Save changes
                 </Button>
               </div>
@@ -226,20 +267,56 @@ export function EditWorkspaceForm({
           </Form>
         </CardContent>
       </Card>
+
       <Card className="w-full h-full border-none shadow-none ">
         <CardContent className="p-7 ">
           <div className="flex flex-col ">
-            <h3 className="font-bold ">Delete your workspace</h3>
+            <h3 className="font-bold ">Invite members</h3>
             <p className="text-sm text-muted-foreground">
-              Deleting a workspace is irrevrsible and will remove all associated
-              information.
+              Add members to your workspace with the invite link.
             </p>
+            <div className="mt-4">
+              <div className="flex items-center gap-x-2">
+                <Input disabled value={inviteLink} />
+                <Button
+                  onClick={handleCopyInviteLink}
+                  variant="secondary"
+                  className="size-12"
+                >
+                  <CopyIcon className="size-5" />
+                </Button>
+              </div>
+            </div>
+            <DottedSeparator clasName="py-7" />
             <Button
               className="mt-6 w-fit ml-auto"
               variant="destructive"
               size="sm"
               type="button"
-              disabled={isUpdatingWorkspace}
+              disabled={isUpdatingWorkspace || isResetingInviteCode}
+              onClick={handleReset}
+            >
+              Reset
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card className="w-full h-full border-none shadow-none ">
+        <CardContent className="p-7 ">
+          <div className="flex flex-col ">
+            <h3 className="font-bold ">Delete your workspace</h3>
+            <p className="text-sm text-muted-foreground">
+              Deleting a workspace is irreversible and will remove all
+              associated information.
+            </p>
+            <DottedSeparator clasName="py-7" />
+            <Button
+              className="mt-6 w-fit ml-auto"
+              variant="destructive"
+              size="sm"
+              type="button"
+              disabled={isUpdatingWorkspace || isDeletingWorkspace}
               onClick={handleDelete}
             >
               Delete
@@ -247,8 +324,6 @@ export function EditWorkspaceForm({
           </div>
         </CardContent>
       </Card>
-
-      <ConfirmationModal />
     </div>
   );
 }
