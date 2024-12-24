@@ -28,7 +28,7 @@ interface WorkspaceFormProps {
   onCancel?: () => void;
 }
 
-export function WorkspaceForm({ onCancel }: WorkspaceFormProps) {
+export function CreateWorkspaceForm({ onCancel }: WorkspaceFormProps) {
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const { mutate, isPending } = useCreateWorkspace();
@@ -129,16 +129,34 @@ export function WorkspaceForm({ onCancel }: WorkspaceFormProps) {
                           onChange={handleImageChange}
                           className="hidden"
                         />
-                        <Button
-                          type="button"
-                          disabled={isPending}
-                          variant="teritary"
-                          size="xs"
-                          className="w-fit mt-2"
-                          onClick={() => inputRef.current?.click()}
-                        >
-                          Upload image
-                        </Button>
+                        {field.value ? (
+                          <Button
+                            type="button"
+                            disabled={isPending}
+                            variant="destructive"
+                            size="xs"
+                            className="w-fit mt-2"
+                            onClick={() => {
+                              field.onChange(null);
+                              if (inputRef.current) {
+                                inputRef.current.value = "";
+                              }
+                            }}
+                          >
+                            Remove image
+                          </Button>
+                        ) : (
+                          <Button
+                            type="button"
+                            disabled={isPending}
+                            variant="teritary"
+                            size="xs"
+                            className="w-fit mt-2"
+                            onClick={() => inputRef.current?.click()}
+                          >
+                            Upload image
+                          </Button>
+                        )}
                       </div>
                     </div>
                   </div>

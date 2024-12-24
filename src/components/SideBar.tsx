@@ -1,7 +1,7 @@
 import { DottedSeparator } from "@/components/DottedSeparator";
 import Image from "next/image";
 import Link from "next/link";
-import { Navigation } from "./Nvigation";
+import { Navigation } from "./Navigation";
 import WorkspaceSwitcher from "./WorkspaceSwitcher";
 
 export function SideBar() {

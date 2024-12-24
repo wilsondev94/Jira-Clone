@@ -1,7 +1,7 @@
 import { parseAsBoolean, useQueryState } from "nuqs";
 import { useParams } from "next/navigation";
 
-export function useWorkSpaces() {
+export function useWorkSpacesId() {
   const param = useParams();
 
   return param.workspaceId as string;

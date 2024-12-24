@@ -14,12 +14,12 @@ import { WorkspaceAvatar } from "@/features/workspaces/components/WorkspaceAvata
 import { useRouter } from "next/navigation";
 import {
   useWorkspaceModal,
-  useWorkSpaces,
+  useWorkSpacesId,
 } from "@/features/workspaces/workSpaceParamHooks/useWorkSpacesParamHook";
 
 export default function WorkspaceSwitcher() {
   const router = useRouter();
-  const workspsceId = useWorkSpaces();
+  const workspsceId = useWorkSpacesId();
   const { data } = useGetWorkspaces();
   const { open } = useWorkspaceModal();
 

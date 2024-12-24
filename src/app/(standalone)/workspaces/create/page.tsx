@@ -1,5 +1,5 @@
 import { getCurrent } from "@/features/auth/actions";
-import { WorkspaceForm } from "@/features/workspaces/components/WorkspaceForm";
+import { CreateWorkspaceForm } from "@/features/workspaces/components/CreateWorkspaceForm";
 import { redirect } from "next/navigation";
 
 export default async function page() {
@@ -8,7 +8,7 @@ export default async function page() {
 
   return (
     <div className=" w-full lg:max-w-xl">
-      <WorkspaceForm />
+      <CreateWorkspaceForm />
     </div>
   );
 }

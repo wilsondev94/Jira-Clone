@@ -133,7 +133,7 @@ export function SignUpCard() {
           disabled={false}
         >
           <FcGoogle className="mr-2 size-5" />
-          Login with Google
+          Sign Up with Google
         </Button>
         <Button
           variant="secondary"
@@ -142,7 +142,7 @@ export function SignUpCard() {
           disabled={false}
         >
           <FaGithub className="mr-2 size-5" />
-          Login with Github
+          Sign Up with Github
         </Button>
       </CardContent>
 
