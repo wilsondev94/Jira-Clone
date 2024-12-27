@@ -10,3 +10,13 @@ export interface GetMemberProps {
   workspaceId: string;
   userId: string;
 }
+
+export interface UseGetMembersProps {
+  workspaceId: string;
+}
+
+export interface MembersAvatarProps {
+  name: string;
+  className?: string;
+  fallbackClassName?: string;
+}

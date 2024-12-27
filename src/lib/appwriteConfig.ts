@@ -1,9 +1,9 @@
 import "server-only";
 
-import { Account, Client, Databases } from "node-appwrite";
+import { cookies } from "next/headers";
+import { Account, Client, Databases, Users } from "node-appwrite";
 import { ENDPOINT, NEXT_KEY, PROJECT_ID } from "@/appwrite-config";
 import { AUTH_COOKIE } from "@/features/auth/constant";
-import { cookies } from "next/headers";
 
 export async function createSessionClient() {
   const client = new Client().setEndpoint(ENDPOINT).setProject(PROJECT_ID);
@@ -35,6 +35,9 @@ export async function createAdminClient() {
   return {
     get account() {
       return new Account(client);
+    },
+    get users() {
+      return new Users(client);
     },
   };
 }

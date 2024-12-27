@@ -1,3 +1,4 @@
+import { MemberRole } from "@/features/members/type";
 import { z } from "zod";
 
 export const loginSchema = z.object({
@@ -33,4 +34,20 @@ export const UpdateworkspaceSchema = z.object({
       z.string().transform((value) => (value === "" ? undefined : value)),
     ])
     .optional(),
+});
+
+export const InviteCodeSchema = z.object({
+  code: z.string(),
+});
+
+export const MemberSchema = z.object({
+  workspaceId: z.string(),
+});
+
+export const MemberIdSchema = z.object({
+  role: z.nativeEnum(MemberRole),
+});
+
+export const projectsSchema = z.object({
+  workspaceId: z.string(),
 });

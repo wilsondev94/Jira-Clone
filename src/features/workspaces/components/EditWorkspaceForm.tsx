@@ -19,15 +19,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowLeft, CopyIcon, ImageIcon } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useUpdateWorkspace } from "../customWorkspacesApiHook/useUpdateWorkspace";
-import { Workspace } from "../type";
+import { useUpdateWorkspace } from "../workspacesApiHook/useUpdateWorkspace";
+import { Workspace } from "../types";
 import { useConfirmationModal } from "@/components/ConfirmationModal";
-import { useDeleteWorkspace } from "../customWorkspacesApiHook/useDeleteWorkspace";
+import { useDeleteWorkspace } from "../workspacesApiHook/useDeleteWorkspace";
 import { toast } from "sonner";
-import { useResetInviteCode } from "../customWorkspacesApiHook/useResetInviteCode";
+import { useResetInviteCode } from "../workspacesApiHook/useResetInviteCode";
 
 interface WorkspaceFormProps {
   onCancel?: () => void;
@@ -74,7 +74,8 @@ export function EditWorkspaceForm({
 
     deleteWorkspace(
       {
-        form: undefined,
+        // @ts-expect-error ignore error
+        form: null,
         param: { workspaceId: initialValues.$id },
       },
 
@@ -91,8 +92,9 @@ export function EditWorkspaceForm({
 
     resetInviteCode(
       {
+        // @ts-expect-error ignore error
+        form: null,
         param: { workspaceId: initialValues.$id },
-        form: undefined,
       },
       {
         onSuccess: () => {
@@ -125,7 +127,15 @@ export function EditWorkspaceForm({
     if (file) form.setValue("image", file);
   }
 
-  const inviteLink = `${window.location.origin}/worspaces/${initialValues.$id}/join/${initialValues.inviteCode}`;
+  const [inviteLink, setInviteLink] = useState<string>("");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setInviteLink(
+        `${window.location.origin}/workspaces/${initialValues.$id}/join/${initialValues.inviteCode}`
+      );
+    }
+  }, [initialValues.$id, initialValues.inviteCode]);
 
   const handleCopyInviteLink = () => {
     navigator.clipboard

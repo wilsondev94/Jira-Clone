@@ -1,12 +1,7 @@
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-
-interface WorkspaceAvatarProps {
-  image?: string;
-  name: string;
-  className?: string;
-}
+import { WorkspaceAvatarProps } from "../types";
 
 export const WorkspaceAvatar = ({
   image,

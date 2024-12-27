@@ -9,7 +9,7 @@ import {
 } from "@/appwrite-config";
 import { getMember } from "@/features/members/membersUtils";
 import { createSessionClient } from "@/lib/appwriteConfig";
-import { GetWorksapceProps, Workspace } from "./type";
+import { GetWorksapceProps, Workspace } from "./types";
 
 export async function getWorkspaces() {
   try {
@@ -70,6 +70,24 @@ export async function getWorkspace({ workspaceId }: GetWorksapceProps) {
     );
 
     return workspaces;
+  } catch {
+    return null;
+  }
+}
+
+export async function getWorkspaceInfo({ workspaceId }: GetWorksapceProps) {
+  try {
+    const { databases } = await createSessionClient();
+
+    const workspace = await databases.getDocument<Workspace>(
+      DATABASE_ID,
+      WORKSPACES_COLLECTION_ID,
+      workspaceId
+    );
+
+    return {
+      name: workspace.name,
+    };
   } catch {
     return null;
   }

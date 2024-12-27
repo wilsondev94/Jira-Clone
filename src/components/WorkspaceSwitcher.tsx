@@ -2,7 +2,7 @@
 
 import { RiAddCircleFill } from "react-icons/ri";
 
-import { useGetWorkspaces } from "@/features/workspaces/customWorkspacesApiHook/useGetWorkspaces";
+import { useGetWorkspaces } from "@/features/workspaces/workspacesApiHook/useGetWorkspaces";
 import {
   Select,
   SelectContent,

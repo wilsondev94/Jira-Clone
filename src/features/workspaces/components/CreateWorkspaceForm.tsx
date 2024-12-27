@@ -16,7 +16,7 @@ import { workspaceSchema } from "@/lib/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useCreateWorkspace } from "../customWorkspacesApiHook/useCreateWorkspace";
+import { useCreateWorkspace } from "../workspacesApiHook/useCreateWorkspace";
 import { useRef } from "react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import Image from "next/image";
