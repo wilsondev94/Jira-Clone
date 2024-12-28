@@ -1,5 +1,6 @@
 import { NavBar } from "@/components/NavBar";
 import { SideBar } from "@/components/SideBar";
+import { ProjectModal } from "@/features/projects/component/ProjectModal";
 import { WorkspaceModal } from "@/features/workspaces/components/WorkspaceModal";
 
 interface DashBoardProps {
@@ -10,6 +11,7 @@ export default function DashBoard({ children }: DashBoardProps) {
   return (
     <div className="min-h-screen ">
       <WorkspaceModal />
+      <ProjectModal />
       <div className="flex w-full h-full">
         <div className="fixed left-0 top-0 hidden lg:block lg:w-[264px] h-full overflow-y-auto">
           <SideBar />

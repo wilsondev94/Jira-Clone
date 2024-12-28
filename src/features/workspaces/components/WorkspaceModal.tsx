@@ -2,7 +2,7 @@
 
 import { ResponsiveModal } from "@/components/ResponsiveModal";
 import { CreateWorkspaceForm } from "./CreateWorkspaceForm";
-import { useWorkspaceModal } from "../workSpaceParamHooks/useWorkSpacesParamHook";
+import { useWorkspaceModal } from "../hooks/useCreateWorkspaceModal/useWorkspaceModal";
 
 export function WorkspaceModal() {
   const { isOpen, setIsOpen, close } = useWorkspaceModal();

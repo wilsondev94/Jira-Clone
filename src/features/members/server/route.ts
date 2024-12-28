@@ -1,4 +1,4 @@
-import { DATABASE_ID, MEMBERS_COLLECTION_ID } from "@/appwrite-config";
+import { DATABASE_ID, MEMBERS_COLLECTION_ID } from "@/lib/appwriteConstants";
 import { createAdminClient } from "@/lib/appwriteConfig";
 import { MemberIdSchema, MemberSchema } from "@/lib/schemas";
 import { sessionMiddleware } from "@/lib/sessionMiddleware";
@@ -6,7 +6,7 @@ import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
 import { Query } from "node-appwrite";
 import { getMember } from "../membersUtils";
-import { MemberRole } from "../type";
+import { MemberRole } from "../../../types/memberTypes/type";
 
 const app = new Hono()
   .get("/", sessionMiddleware, zValidator("query", MemberSchema), async (c) => {

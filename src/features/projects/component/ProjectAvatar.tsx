@@ -3,11 +3,21 @@ import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { AvatarProps } from "@/types/types";
 
-export const WorkspaceAvatar = ({ image, name, className }: AvatarProps) => {
+export const ProjectAvatar = ({
+  image,
+  name,
+  className,
+  fallbackClassName,
+}: AvatarProps) => {
   if (!image)
     return (
-      <Avatar className={cn("size-10 ", className)}>
-        <AvatarFallback className="text-white bg-blue-500 font-semibold text-lg uppercase">
+      <Avatar className={cn("size-5 ", className)}>
+        <AvatarFallback
+          className={cn(
+            "text-white bg-blue-500 font-semibold text-sm uppercase",
+            fallbackClassName
+          )}
+        >
           {name?.[0]}
         </AvatarFallback>
       </Avatar>
@@ -15,7 +25,7 @@ export const WorkspaceAvatar = ({ image, name, className }: AvatarProps) => {
 
   return (
     <div
-      className={cn("size-10 relative rounded-md  overflow-hidden", className)}
+      className={cn("size-5 relative rounded-md  overflow-hidden", className)}
     >
       <Image
         src={image}

@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { getCurrent } from "@/features/auth/actions";
 import { EditWorkspaceForm } from "@/features/workspaces/components/EditWorkspaceForm";
 import { getWorkspace } from "@/features/workspaces/actions";
-import { WorkspaceIdProps } from "@/features/workspaces/types";
+import { WorkspaceIdProps } from "@/types/workspaceTypes/types";
 
 export default async function SettingsPage({ params }: WorkspaceIdProps) {
   const user = await getCurrent();

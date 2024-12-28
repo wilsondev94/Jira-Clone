@@ -1,7 +1,7 @@
 import { getCurrent } from "@/features/auth/actions";
 import { getWorkspaceInfo } from "@/features/workspaces/actions";
 import JoinWorkspaceForm from "@/features/workspaces/components/JoinWorkspaceForm";
-import { WorkspaceIdProps } from "@/features/workspaces/types";
+import { WorkspaceIdProps } from "@/types/workspaceTypes/types";
 import { redirect } from "next/navigation";
 
 async function JoinWorkspace({ params }: WorkspaceIdProps) {
@@ -18,8 +18,7 @@ async function JoinWorkspace({ params }: WorkspaceIdProps) {
 
   return (
     <div className="w-full lg:max-w-xl">
-      <JoinWorkspaceForm initialValues={initialValues}
-       />
+      <JoinWorkspaceForm initialValues={initialValues} />
     </div>
   );
 }

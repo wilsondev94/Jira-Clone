@@ -1,5 +1,5 @@
 import { getCurrent } from "@/features/auth/actions";
-import { WorkspaceIdProps } from "@/features/workspaces/types";
+import { WorkspaceIdProps } from "@/types/workspaceTypes/types";
 import { redirect } from "next/navigation";
 
 export default async function WorkSpaceIdPage({ params }: WorkspaceIdProps) {

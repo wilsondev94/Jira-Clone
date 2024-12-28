@@ -2,7 +2,6 @@
 
 import { RiAddCircleFill } from "react-icons/ri";
 
-import { useGetWorkspaces } from "@/features/workspaces/workspacesApiHook/useGetWorkspaces";
 import {
   Select,
   SelectContent,
@@ -12,17 +11,16 @@ import {
 } from "./ui/select";
 import { WorkspaceAvatar } from "@/features/workspaces/components/WorkspaceAvatar";
 import { useRouter } from "next/navigation";
-import {
-  useWorkspaceModal,
-  useWorkSpacesId,
-} from "@/features/workspaces/workSpaceParamHooks/useWorkSpacesParamHook";
+import { useWorkSpacesId } from "@/features/workspaces/hooks/workspaceParam/useWorkSpacesParam";
+import { useWorkspaceModal } from "@/features/workspaces/hooks/useCreateWorkspaceModal/useWorkspaceModal";
+import { useGetWorkspaces } from "@/features/workspaces/hooks/workspacesApi/useGetWorkspaces";
 
 export default function WorkspaceSwitcher() {
   const router = useRouter();
   const workspsceId = useWorkSpacesId();
-  const { data } = useGetWorkspaces();
   const { open } = useWorkspaceModal();
 
+  const { data } = useGetWorkspaces();
   const workspaces = data?.data.documents;
 
   function onSelect(id: string) {

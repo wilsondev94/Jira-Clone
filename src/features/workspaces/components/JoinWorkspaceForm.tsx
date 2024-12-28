@@ -7,15 +7,15 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { JoinWorkspaceProps } from "../types";
+import { JoinWorkspaceProps } from "../../../types/workspaceTypes/types";
 import { DottedSeparator } from "@/components/DottedSeparator";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import {
   useInviteCode,
   useWorkSpacesId,
-} from "../workSpaceParamHooks/useWorkSpacesParamHook";
-import { useJoinWorkspace } from "../workspacesApiHook/useJoinWorkspace";
+} from "../hooks/workspaceParam/useWorkSpacesParam";
+import { useJoinWorkspace } from "../hooks/workspacesApi/useJoinWorkspace";
 import { useRouter } from "next/navigation";
 
 export default function JoinWorkspaceForm({

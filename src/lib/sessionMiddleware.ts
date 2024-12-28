@@ -15,7 +15,7 @@ import {
 } from "node-appwrite";
 
 import { AUTH_COOKIE } from "@/features/auth/constant";
-import { ENDPOINT, PROJECT_ID } from "@/appwrite-config";
+import { ENDPOINT, PROJECT_ID } from "@/lib/appwriteConstants";
 
 type SessionMidddlewareProps = {
   Variables: {

@@ -1,6 +1,6 @@
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
-import { MembersAvatarProps } from "../type";
+import { MembersAvatarProps } from "../../../types/memberTypes/type";
 
 export const MemberAvatar = ({
   name,

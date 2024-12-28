@@ -6,24 +6,13 @@ import {
   DATABASE_ID,
   MEMBERS_COLLECTION_ID,
   WORKSPACES_COLLECTION_ID,
-} from "@/appwrite-config";
+} from "@/lib/appwriteConstants";
 import { getMember } from "@/features/members/membersUtils";
 import { createSessionClient } from "@/lib/appwriteConfig";
-import { GetWorksapceProps, Workspace } from "./types";
+import { GetWorksapceProps, Workspace } from "../../types/workspaceTypes/types";
 
 export async function getWorkspaces() {
   try {
-    // const client = new Client().setEndpoint(ENDPOINT).setProject(PROJECT_ID);
-
-    // const session = await cookies().get(AUTH_COOKIE);
-
-    // if (!session) return { documents: [], total: 0 };
-
-    // client.setSession(session.value);
-
-    // const databases = new Databases(client);
-    // const account = new Account(client);
-
     const { account, databases } = await createSessionClient();
 
     const user = await account.get();

@@ -22,12 +22,12 @@ import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useUpdateWorkspace } from "../workspacesApiHook/useUpdateWorkspace";
-import { Workspace } from "../types";
+import { useUpdateWorkspace } from "../hooks/workspacesApi/useUpdateWorkspace";
+import { Workspace } from "../../../types/workspaceTypes/types";
 import { useConfirmationModal } from "@/components/ConfirmationModal";
-import { useDeleteWorkspace } from "../workspacesApiHook/useDeleteWorkspace";
+import { useDeleteWorkspace } from "../hooks/workspacesApi/useDeleteWorkspace";
 import { toast } from "sonner";
-import { useResetInviteCode } from "../workspacesApiHook/useResetInviteCode";
+import { useResetInviteCode } from "../hooks/workspacesApi/useResetInviteCode";
 
 interface WorkspaceFormProps {
   onCancel?: () => void;

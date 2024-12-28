@@ -7,9 +7,9 @@ import {
   DATABASE_ID,
   MEMBERS_COLLECTION_ID,
   WORKSPACES_COLLECTION_ID,
-} from "@/appwrite-config";
+} from "@/lib/appwriteConstants";
 import { getMember } from "@/features/members/membersUtils";
-import { MemberRole } from "@/features/members/type";
+import { MemberRole } from "@/types/memberTypes/type";
 import {
   InviteCodeSchema,
   UpdateworkspaceSchema,
@@ -17,7 +17,7 @@ import {
 } from "@/lib/schemas";
 import { sessionMiddleware } from "@/lib/sessionMiddleware";
 import { generateInviteCode } from "@/lib/utils";
-import { Workspace } from "../types";
+import { Workspace } from "../../../types/workspaceTypes/types";
 
 const app = new Hono()
   .get("/", sessionMiddleware, async (c) => {

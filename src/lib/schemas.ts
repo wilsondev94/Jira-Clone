@@ -1,4 +1,4 @@
-import { MemberRole } from "@/features/members/type";
+import { MemberRole } from "@/types/memberTypes/type";
 import { z } from "zod";
 
 export const loginSchema = z.object({
@@ -49,5 +49,20 @@ export const MemberIdSchema = z.object({
 });
 
 export const projectsSchema = z.object({
+  workspaceId: z.string(),
+});
+
+export const createProjectSchema = z.object({
+  name: z
+    .string()
+    .trim()
+    .min(1, "Name must be at least 1 character")
+    .optional(),
+  image: z
+    .union([
+      z.instanceof(File),
+      z.string().transform((value) => (value === "" ? undefined : value)),
+    ])
+    .optional(),
   workspaceId: z.string(),
 });

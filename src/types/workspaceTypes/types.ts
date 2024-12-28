@@ -22,10 +22,3 @@ export interface JoinWorkspaceProps {
     name: string;
   };
 }
-
-
-export interface WorkspaceAvatarProps {
-  image?: string;
-  name: string;
-  className?: string;
-}

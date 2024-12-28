@@ -1,7 +1,7 @@
 import { Query } from "node-appwrite";
 
-import { DATABASE_ID, MEMBERS_COLLECTION_ID } from "@/appwrite-config";
-import { GetMemberProps } from "./type";
+import { DATABASE_ID, MEMBERS_COLLECTION_ID } from "@/lib/appwriteConstants";
+import { GetMemberProps } from "../../types/memberTypes/type";
 
 export async function getMember({
   databases,

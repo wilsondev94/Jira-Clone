@@ -2,7 +2,7 @@ import "server-only";
 
 import { cookies } from "next/headers";
 import { Account, Client, Databases, Users } from "node-appwrite";
-import { ENDPOINT, NEXT_KEY, PROJECT_ID } from "@/appwrite-config";
+import { ENDPOINT, NEXT_KEY, PROJECT_ID } from "@/lib/appwriteConstants";
 import { AUTH_COOKIE } from "@/features/auth/constant";
 
 export async function createSessionClient() {

@@ -1,6 +1,6 @@
 import { client } from "@/lib/rpc";
 import { useQuery } from "@tanstack/react-query";
-import { UseGetMembersProps } from "../type";
+import { UseGetMembersProps } from "../../../types/memberTypes/type";
 
 export function useGetMembers({ workspaceId }: UseGetMembersProps) {
   const query = useQuery({
