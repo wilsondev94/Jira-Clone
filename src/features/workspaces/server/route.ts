@@ -2,21 +2,17 @@ import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
 import { ID, Query } from "node-appwrite";
 
+import { getMember } from "@/features/members/membersUtils";
 import {
   BUCKET_ID,
   DATABASE_ID,
   MEMBERS_COLLECTION_ID,
   WORKSPACES_COLLECTION_ID,
 } from "@/lib/appwriteConstants";
-import { getMember } from "@/features/members/membersUtils";
-import { MemberRole } from "@/types/memberTypes/type";
-import {
-  InviteCodeSchema,
-  UpdateworkspaceSchema,
-  workspaceSchema,
-} from "@/lib/schemas";
+import { InviteCodeSchema, UpdateSchema, workspaceSchema } from "@/lib/schemas";
 import { sessionMiddleware } from "@/lib/sessionMiddleware";
 import { generateInviteCode } from "@/lib/utils";
+import { MemberRole } from "@/types/memberTypes/type";
 import { Workspace } from "../../../types/workspaceTypes/types";
 
 const app = new Hono()
@@ -91,7 +87,7 @@ const app = new Hono()
   .patch(
     "/:workspaceId",
     sessionMiddleware,
-    zValidator("form", UpdateworkspaceSchema),
+    zValidator("form", UpdateSchema),
     async (c) => {
       const databases = c.get("databases");
       const storage = c.get("storage");
@@ -137,7 +133,7 @@ const app = new Hono()
   .delete(
     "/:workspaceId",
     sessionMiddleware,
-    zValidator("form", UpdateworkspaceSchema),
+    zValidator("form", UpdateSchema),
     async (c) => {
       const databases = c.get("databases");
       const user = c.get("user");
@@ -165,7 +161,7 @@ const app = new Hono()
   .post(
     "/:workspaceId/reset-invite-code",
     sessionMiddleware,
-    zValidator("form", UpdateworkspaceSchema),
+    zValidator("form", UpdateSchema),
     async (c) => {
       const databases = c.get("databases");
       const user = c.get("user");

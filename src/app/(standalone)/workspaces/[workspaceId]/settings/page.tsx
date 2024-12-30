@@ -11,8 +11,6 @@ export default async function SettingsPage({ params }: WorkspaceIdProps) {
 
   const initialValues = await getWorkspace({ workspaceId: params.workspaceId });
 
-  if (!initialValues) redirect(`/worksapces/${params.workspaceId}`);
-
   return (
     <div className="w-full lg:max-w-xl">
       {" "}

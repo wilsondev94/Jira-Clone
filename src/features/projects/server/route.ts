@@ -4,11 +4,16 @@ import {
   PROJECTS_COLLECTION_ID,
 } from "@/lib/appwriteConstants";
 import { getMember } from "@/features/members/membersUtils";
-import { createProjectSchema, projectsSchema } from "@/lib/schemas";
+import {
+  createProjectSchema,
+  projectsSchema,
+  UpdateSchema,
+} from "@/lib/schemas";
 import { sessionMiddleware } from "@/lib/sessionMiddleware";
 import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
 import { ID, Query } from "node-appwrite";
+import { Project } from "@/types/projectTypes/types";
 
 const app = new Hono()
   .post(
@@ -89,6 +94,58 @@ const app = new Hono()
       );
 
       return c.json({ data: projects });
+    }
+  )
+  .patch(
+    "/:projectId",
+    sessionMiddleware,
+    zValidator("form", UpdateSchema),
+    async (c) => {
+      const databases = c.get("databases");
+      const storage = c.get("storage");
+      const user = c.get("user");
+
+      const { projectId } = c.req.param();
+      const { name, image } = c.req.valid("form");
+
+      const existingProject = await databases.getDocument<Project>(
+        DATABASE_ID,
+        PROJECTS_COLLECTION_ID,
+        projectId
+      );
+
+      const member = await getMember({
+        databases,
+        workspaceId: existingProject.workspaceId,
+        userId: user.$id,
+      });
+
+      if (!member) {
+        return c.json({ error: "Unauthorized" }, 401);
+      }
+
+      let upLoadImageUrl: string | undefined;
+
+      if (image instanceof File) {
+        const file = await storage.createFile(BUCKET_ID, ID.unique(), image);
+
+        const bufferArray = await storage.getFilePreview(BUCKET_ID, file.$id);
+
+        upLoadImageUrl = `data:image/png;base64,${Buffer.from(
+          bufferArray
+        ).toString("base64")}`;
+      } else {
+        upLoadImageUrl = image;
+      }
+
+      const project = await databases.updateDocument(
+        DATABASE_ID,
+        PROJECTS_COLLECTION_ID,
+        projectId,
+        { name, imageUrl: upLoadImageUrl }
+      );
+
+      return c.json({ data: project });
     }
   );
 

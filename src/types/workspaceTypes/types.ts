@@ -7,7 +7,7 @@ export type Workspace = Models.Document & {
   userId: string;
 };
 
-export interface GetWorksapceProps {
+export interface GetWorkspaceProps {
   workspaceId: string;
 }
 
