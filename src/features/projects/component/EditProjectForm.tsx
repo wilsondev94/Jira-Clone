@@ -27,6 +27,7 @@ import { cn } from "@/lib/utils";
 import { useConfirmationModal } from "@/components/ConfirmationModal";
 import { Project } from "@/types/projectTypes/types";
 import { useUpdateProject } from "../hooks/projectsApi/useUpdateProjects";
+import { useDeleteProject } from "../hooks/projectsApi/useDeleteProject";
 
 interface ProjectFormProps {
   onCancel?: () => void;
@@ -40,11 +41,11 @@ export function EditProjectForm({ onCancel, initialValues }: ProjectFormProps) {
   const { mutate: updateProject, isPending: isUpdatingProject } =
     useUpdateProject();
 
-  // const { mutate: deleteWorkspace, isPending: isDeletingWorkspace } =
-  //   useDeleteWorkspace();
+  const { mutate: deleteProject, isPending: isDeletingProject } =
+    useDeleteProject();
 
   const [ConfirmationModal, confirmDelete] = useConfirmationModal(
-    "Delete workspace",
+    "Delete project",
     "This action cannot be undone",
     "destructive"
   );
@@ -57,25 +58,6 @@ export function EditProjectForm({ onCancel, initialValues }: ProjectFormProps) {
     },
   });
 
-  async function handleDelete() {
-    const ok = await confirmDelete();
-    if (!ok) return;
-
-    //   deleteWorkspace(
-    //     {
-    //       // @ts-expect-error ignore error
-    //       form: null,
-    //       param: { workspaceId: initialValues.$id },
-    //     },
-
-    //     {
-    //       onSuccess: () => {
-    //         router.push("/");
-    //       },
-    //     }
-    //   );
-  }
-
   function onSubmit(values: z.infer<typeof UpdateSchema>) {
     const finalFileValue = {
       ...values,
@@ -87,6 +69,26 @@ export function EditProjectForm({ onCancel, initialValues }: ProjectFormProps) {
       {
         onSuccess: () => {
           form.reset();
+          router.push("/");
+        },
+      }
+    );
+  }
+
+  async function handleDelete() {
+    const ok = await confirmDelete();
+    if (!ok) return;
+
+    deleteProject(
+      {
+        // @ts-expect-error ignore error
+        form: null,
+        param: { projectId: initialValues.$id },
+      },
+
+      {
+        onSuccess: () => {
+          window.location.href = `/workspaces/${initialValues.workspaceId}`;
         },
       }
     );
@@ -108,7 +110,11 @@ export function EditProjectForm({ onCancel, initialValues }: ProjectFormProps) {
             size="sm"
             variant="secondary"
             className="mt-2"
-            onClick={() => router.push(`/workspaces/${initialValues.$id}`)}
+            onClick={() =>
+              router.push(
+                `/workspaces/${initialValues.workspaceId}/projects/${initialValues.$id}`
+              )
+            }
           >
             <ArrowLeft className="size-4 " /> Back
           </Button>
@@ -221,7 +227,11 @@ export function EditProjectForm({ onCancel, initialValues }: ProjectFormProps) {
                 >
                   Cancle
                 </Button>
-                <Button type="submit" size="lg" disabled={isUpdatingProject}>
+                <Button
+                  type="submit"
+                  size="lg"
+                  disabled={isUpdatingProject || isDeletingProject}
+                >
                   Save changes
                 </Button>
               </div>
@@ -244,7 +254,7 @@ export function EditProjectForm({ onCancel, initialValues }: ProjectFormProps) {
               variant="destructive"
               size="sm"
               type="button"
-              disabled={isUpdatingProject}
+              disabled={isUpdatingProject || isDeletingProject}
               onClick={handleDelete}
             >
               Delete
