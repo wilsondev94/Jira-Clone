@@ -24,7 +24,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { createProjectSchema } from "@/lib/schemas";
 import { cn } from "@/lib/utils";
 import { useCreateProject } from "../hooks/projectsApi/useCreateProjects";
-import { useWorkSpacesId } from "@/features/workspaces/hooks/workspaceParam/useWorkSpacesParam";
+import { useWorkSpacesId } from "@/features/workspaces/hooks/workspaceParam/useWorkSpaceParam";
 
 interface ProjectFormProps {
   onCancel?: () => void;

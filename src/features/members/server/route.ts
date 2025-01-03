@@ -14,6 +14,7 @@ const app = new Hono()
 
     const databases = c.get("databases");
     const user = c.get("user");
+
     const { workspaceId } = c.req.valid("query");
     if (!workspaceId) {
       return c.json({ error: "workspaceId is required" }, 400);

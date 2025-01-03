@@ -170,7 +170,7 @@ export function EditProjectForm({ onCancel, initialValues }: ProjectFormProps) {
 
                         <div className="flex flex-col">
                           <p className="text-sm">Project Icon</p>
-                          <p className="text-sm text-muted-foreground">
+                          <p className="text-sm text-muted-foreground ">
                             JPG,PNG,SVG or JPEG (max 1mb)
                           </p>
                           <input

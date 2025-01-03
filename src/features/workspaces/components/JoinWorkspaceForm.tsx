@@ -14,7 +14,7 @@ import Link from "next/link";
 import {
   useInviteCode,
   useWorkSpacesId,
-} from "../hooks/workspaceParam/useWorkSpacesParam";
+} from "../hooks/workspaceParam/useWorkSpaceParam";
 import { useJoinWorkspace } from "../hooks/workspacesApi/useJoinWorkspace";
 import { useRouter } from "next/navigation";
 

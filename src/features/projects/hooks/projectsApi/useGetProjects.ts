@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { client } from "@/lib/rpc";
-import { useGetProjectsProps } from "../../../../types/projectTypes/types";
+import { useGetProjectsProps } from "@/types/projectTypes/types";
 
 export function useGetProjects({ workspaceId }: useGetProjectsProps) {
   const query = useQuery({

@@ -4,11 +4,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { RiAddCircleFill } from "react-icons/ri";
 
-import { useWorkSpacesId } from "@/features/workspaces/hooks/workspaceParam/useWorkSpacesParam";
+import { useWorkSpacesId } from "@/features/workspaces/hooks/workspaceParam/useWorkSpaceParam";
 import { useGetProjects } from "@/features/projects/hooks/projectsApi/useGetProjects";
 import { cn } from "@/lib/utils";
 import { useProjectModal } from "@/features/projects/hooks/useCreateProjectModal/useProjectModal";
-import { ProjectAvatar } from "@/features/projects/component/ProjectAvatar";
+import { ProjectAvatar } from "@/features/projects/components/ProjectAvatar";
 
 export function Projects() {
   const pathname = usePathname();

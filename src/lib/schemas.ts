@@ -1,5 +1,7 @@
-import { MemberRole } from "@/types/memberTypes/type";
 import { z } from "zod";
+
+import { MemberRole } from "@/types/memberTypes/type";
+import { TaskStatus } from "@/types/taskTypes/types";
 
 //  LOGIN SCHEMAS
 export const loginSchema = z.object({
@@ -57,6 +59,26 @@ export const createProjectSchema = z.object({
     ])
     .optional(),
   workspaceId: z.string(),
+});
+
+// TASK SCHEMAS
+export const createTaskSchema = z.object({
+  name: z.string().trim().min(1, "Name is required"),
+  status: z.nativeEnum(TaskStatus, { required_error: "Required" }),
+  workspaceId: z.string().trim().min(1, "Required"),
+  projectId: z.string().trim().min(1, "Required"),
+  dueDate: z.coerce.date(),
+  assigneeId: z.string().trim().min(1, "Required"),
+  description: z.string().optional(),
+});
+
+export const getTaskSchema = z.object({
+  workspaceId: z.string(),
+  projectId: z.string().nullish(),
+  assigneeId: z.string().nullish(),
+  status: z.nativeEnum(TaskStatus).nullish(),
+  search: z.string().nullish(),
+  dueDate: z.string().nullish(),
 });
 
 //  GENERAL SCHEMAS

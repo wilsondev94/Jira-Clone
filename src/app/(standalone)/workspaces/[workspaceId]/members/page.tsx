@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { getCurrent } from "@/features/auth/actions";
-import { MembersList } from "@/features/members/component/MembersList";
+import { MembersList } from "@/features/members/components/MembersList";
 
 async function MembersPage() {
   const user = getCurrent();

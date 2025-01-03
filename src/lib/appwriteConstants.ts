@@ -15,4 +15,6 @@ export const MEMBERS_COLLECTION_ID =
 export const PROJECTS_COLLECTION_ID =
   process.env.NEXT_PUBLIC_PROJECTS_COLLECTION_ID!;
 
+export const TASKS_COLLECTION_ID = process.env.NEXT_PUBLIC_TASKS_COLLECTION_ID!;
+
 export const BUCKET_ID = process.env.NEXT_PUBLIC_BUCKET_ID!;

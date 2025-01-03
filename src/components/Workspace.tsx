@@ -11,7 +11,7 @@ import {
 } from "./ui/select";
 import { WorkspaceAvatar } from "@/features/workspaces/components/WorkspaceAvatar";
 import { useRouter } from "next/navigation";
-import { useWorkSpacesId } from "@/features/workspaces/hooks/workspaceParam/useWorkSpacesParam";
+import { useWorkSpacesId } from "@/features/workspaces/hooks/workspaceParam/useWorkSpaceParam";
 import { useWorkspaceModal } from "@/features/workspaces/hooks/useCreateWorkspaceModal/useWorkspaceModal";
 import { useGetWorkspaces } from "@/features/workspaces/hooks/workspacesApi/useGetWorkspaces";
 

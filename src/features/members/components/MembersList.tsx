@@ -7,7 +7,7 @@ import { ArrowLeft, MoreVerticalIcon } from "lucide-react";
 import { DottedSeparator } from "@/components/DottedSeparator";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useWorkSpacesId } from "@/features/workspaces/hooks/workspaceParam/useWorkSpacesParam";
+import { useWorkSpacesId } from "@/features/workspaces/hooks/workspaceParam/useWorkSpaceParam";
 import { useGetMembers } from "../membersApiHooks/useGetMembers";
 import { MemberAvatar } from "./MembersAvatar";
 import { Separator } from "@/components/ui/separator";

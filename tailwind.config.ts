@@ -13,6 +13,7 @@ const config: Config = {
     extend: {
       colors: {
         background: "hsl(var(--background))",
+        // background: "#172540",
         foreground: "hsl(var(--foreground))",
         card: {
           DEFAULT: "hsl(var(--card))",
