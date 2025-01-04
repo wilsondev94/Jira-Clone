@@ -9,6 +9,7 @@ import {
 import { createTaskSchema, getTaskSchema } from "@/lib/schemas";
 import { sessionMiddleware } from "@/lib/sessionMiddleware";
 import { Project } from "@/types/projectTypes/types";
+import { Task } from "@/types/taskTypes/types";
 import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
 import { ID, Query } from "node-appwrite";
@@ -62,7 +63,7 @@ const app = new Hono()
         query.push(Query.search("name", search));
       }
 
-      const tasks = await databases.listDocuments(
+      const tasks = await databases.listDocuments<Task>(
         DATABASE_ID,
         TASKS_COLLECTION_ID,
         query
@@ -75,13 +76,29 @@ const app = new Hono()
       const projects = await databases.listDocuments<Project>(
         DATABASE_ID,
         PROJECTS_COLLECTION_ID,
-        projectIds.length > 0 ? [Query.contains("$id", projectIds)] : []
+        projectIds.length > 0
+          ? [
+              Query.contains(
+                "$id",
+
+                projectIds
+              ),
+            ]
+          : []
       );
 
       const members = await databases.listDocuments(
         DATABASE_ID,
         MEMBERS_COLLECTION_ID,
-        assigneeIds.length > 0 ? [Query.contains("$id", assigneeIds)] : []
+        assigneeIds.length > 0
+          ? [
+              Query.contains(
+                "$id",
+
+                assigneeIds
+              ),
+            ]
+          : []
       );
 
       const assignees = await Promise.all(
@@ -174,6 +191,38 @@ const app = new Hono()
 
       return c.json({ data: task });
     }
-  );
+  )
+  .delete("/:taskId", sessionMiddleware, async (c) => {
+    const user = c.get("user");
+    const databases = c.get("databases");
+    const { taskId } = c.req.param();
+
+    const task = await databases.getDocument<Task>(
+      DATABASE_ID,
+      TASKS_COLLECTION_ID,
+      taskId
+    );
+
+    const member = await getMember({
+      databases,
+      workspaceId: task.workspaceId,
+      userId: user.$id,
+    });
+
+    if (!member) {
+      return c.json(
+        {
+          error: "Unauthorized",
+        },
+        401
+      );
+    }
+
+    await databases.deleteDocument(DATABASE_ID, TASKS_COLLECTION_ID, taskId);
+
+    return c.json({
+      data: { $id: task.$id },
+    });
+  });
 
 export default app;

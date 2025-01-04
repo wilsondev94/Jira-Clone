@@ -1,3 +1,5 @@
+import { Models } from "node-appwrite";
+
 export enum TaskStatus {
   BACKLOG = "BACKLOG",
   TODO = "TODO",
@@ -21,4 +23,25 @@ export interface useGetTasksProps {
 
 export interface DataFiltersProps {
   hideProjectFilter?: boolean;
+}
+
+export type Task = Models.Document & {
+  name: string;
+  projectId: string;
+  assigneeId: string;
+  workspaceId: string;
+  status: TaskStatus;
+  position: string;
+  dueDate: string;
+};
+
+export interface TaskDateProps {
+  value: string;
+  className?: string;
+}
+
+export interface TaskActionsProps {
+  id: string;
+  projectId: string;
+  children: React.ReactNode;
 }

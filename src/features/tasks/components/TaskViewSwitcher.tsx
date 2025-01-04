@@ -10,6 +10,8 @@ import { useWorkSpacesId } from "@/features/workspaces/hooks/workspaceParam/useW
 import { useQueryState } from "nuqs";
 import DataFilters from "./DataFilters";
 import { useTaskFilter } from "../hooks/useTaskFilter/useTaskFilter";
+import { DataTable } from "./DataTable";
+import { Columns } from "./Column";
 
 export default function TaskViewSwitcher() {
   const [view, setView] = useQueryState("task-view", { defaultValue: "table" });
@@ -19,6 +21,7 @@ export default function TaskViewSwitcher() {
 
   const { data: tasks, isLoading: loadingTask } = useGetTask({
     workspaceId,
+    // @ts-expect-error ignore error
     status,
     assigneeId,
     projectId,
@@ -65,7 +68,7 @@ export default function TaskViewSwitcher() {
           <>
             <TabsContent value="table" className="mt-0">
               Data table
-              {JSON.stringify(tasks)}
+              <DataTable columns={Columns} data={tasks?.data.documents ?? []} />
             </TabsContent>
             <TabsContent value="kanban" className="mt-0">
               Data kanban
