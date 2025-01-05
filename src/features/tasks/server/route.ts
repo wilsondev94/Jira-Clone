@@ -15,6 +15,62 @@ import { Hono } from "hono";
 import { ID, Query } from "node-appwrite";
 
 const app = new Hono()
+
+  .post(
+    "/",
+    sessionMiddleware,
+    zValidator("json", createTaskSchema),
+    async (c) => {
+      const user = c.get("user");
+      const databases = c.get("databases");
+      const { name, status, workspaceId, projectId, dueDate, assigneeId } =
+        c.req.valid("json");
+
+      const member = await getMember({
+        databases,
+        workspaceId,
+        userId: user.$id,
+      });
+
+      if (!member) {
+        return c.json({ error: "Unauthorized" }, 401);
+      }
+
+      const highestPositionTask = await databases.listDocuments(
+        DATABASE_ID,
+        TASKS_COLLECTION_ID,
+        [
+          Query.equal("status", status),
+          Query.equal("workspaceId", workspaceId),
+          Query.orderAsc("position"),
+          Query.limit(1),
+        ]
+      );
+      console.log(highestPositionTask);
+
+      const newPosition =
+        highestPositionTask.documents.length > 0
+          ? highestPositionTask.documents[0].position + 1000
+          : 1000;
+
+      const task = await databases.createDocument(
+        DATABASE_ID,
+        TASKS_COLLECTION_ID,
+        ID.unique(),
+        {
+          name,
+          status,
+          workspaceId,
+          projectId,
+          dueDate,
+          assigneeId,
+          position: newPosition,
+        }
+      );
+
+      return c.json({ data: task });
+    }
+  )
   .get(
     "/",
     sessionMiddleware,
@@ -137,19 +193,79 @@ const app = new Hono()
       });
     }
   )
-  .post(
-    "/",
+  .get("/:taskId", sessionMiddleware, async (c) => {
+    const user = c.get("user");
+    const databases = c.get("databases");
+    const { users } = await createAdminClient();
+
+    const { taskId } = c.req.param();
+
+    const task = await databases.getDocument<Task>(
+      DATABASE_ID,
+      TASKS_COLLECTION_ID,
+      taskId
+    );
+
+    const member = await getMember({
+      databases,
+      workspaceId: task.workspaceId,
+      userId: user.$id,
+    });
+
+    if (!member) {
+      return c.json({ error: "Unauthorized" }, 401);
+    }
+
+    const project = await databases.getDocument<Project>(
+      DATABASE_ID,
+      PROJECTS_COLLECTION_ID,
+      task.projectId
+    );
+
+    const memberAssignee = await databases.getDocument(
+      DATABASE_ID,
+      MEMBERS_COLLECTION_ID,
+      task.assigneeId
+    );
+
+    const Users = await users.get(memberAssignee.userId);
+
+    const assignee = {
+      ...memberAssignee,
+      name: Users.name,
+      email: Users.email,
+    };
+
+    return c.json({
+      data: {
+        ...task,
+        project,
+        assignee,
+      },
+    });
+  })
+  .patch(
+    "/:taskId",
     sessionMiddleware,
-    zValidator("json", createTaskSchema),
+    zValidator("json", createTaskSchema.partial()),
     async (c) => {
       const user = c.get("user");
       const databases = c.get("databases");
-      const { name, status, workspaceId, projectId, dueDate, assigneeId } =
+
+      const { name, status, description, projectId, dueDate, assigneeId } =
         c.req.valid("json");
+
+      const { taskId } = c.req.param();
+
+      const existingTask = await databases.getDocument<Task>(
+        DATABASE_ID,
+        TASKS_COLLECTION_ID,
+        taskId
+      );
 
       const member = await getMember({
         databases,
-        workspaceId,
+        workspaceId: existingTask.workspaceId,
         userId: user.$id,
       });
 
@@ -157,35 +273,17 @@ const app = new Hono()
         return c.json({ error: "Unauthorized" }, 401);
       }
 
-      const highestPositionTask = await databases.listDocuments(
+      const task = await databases.updateDocument<Task>(
         DATABASE_ID,
         TASKS_COLLECTION_ID,
-        [
-          Query.equal("status", status),
-          Query.equal("workspaceId", workspaceId),
-          Query.orderAsc("position"),
-          Query.limit(1),
-        ]
-      );
-      console.log(highestPositionTask);
-
-      const newPosition =
-        highestPositionTask.documents.length > 0
-          ? highestPositionTask.documents[0].position + 1000
-          : 1000;
-
-      const task = await databases.createDocument(
-        DATABASE_ID,
-        TASKS_COLLECTION_ID,
-        ID.unique(),
+        taskId,
         {
           name,
           status,
-          workspaceId,
           projectId,
           dueDate,
           assigneeId,
-          position: newPosition,
+          description,
         }
       );
 

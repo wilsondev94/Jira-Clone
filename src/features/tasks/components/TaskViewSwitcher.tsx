@@ -4,8 +4,8 @@ import { DottedSeparator } from "@/components/DottedSeparator";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Loader, PlusIcon } from "lucide-react";
-import { useTaskModal } from "../hooks/useCreateTaskModal/useTaskModal";
-import { useGetTask } from "../hooks/taskApi/useGetTask";
+import { useCreateTaskModal } from "../hooks/useTaskModal/useCreateTaskModal";
+import { useGetTasks } from "../hooks/taskApi/useGetTasks";
 import { useWorkSpacesId } from "@/features/workspaces/hooks/workspaceParam/useWorkSpaceParam";
 import { useQueryState } from "nuqs";
 import DataFilters from "./DataFilters";
@@ -19,7 +19,7 @@ export default function TaskViewSwitcher() {
 
   const workspaceId = useWorkSpacesId();
 
-  const { data: tasks, isLoading: loadingTask } = useGetTask({
+  const { data: tasks, isLoading: loadingTask } = useGetTasks({
     workspaceId,
     // @ts-expect-error ignore error
     status,
@@ -28,7 +28,7 @@ export default function TaskViewSwitcher() {
     dueDate,
   });
 
-  const { open } = useTaskModal();
+  const { open } = useCreateTaskModal();
 
   return (
     <Tabs

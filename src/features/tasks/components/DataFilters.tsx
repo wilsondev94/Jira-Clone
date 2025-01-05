@@ -26,6 +26,7 @@ export default function DataFilters({ hideProjectFilter }: DataFiltersProps) {
 
   const loading = loadingProjects || loadingMembers;
 
+  //  @ts-expect-error ignore error
   const projectOptions = projects?.data.documents.map((project) => ({
     value: project.$id,
     label: project.name,
@@ -107,6 +108,7 @@ export default function DataFilters({ hideProjectFilter }: DataFiltersProps) {
         <SelectContent>
           <SelectItem value="all">All projects</SelectItem>
           <SelectSeparator />
+          {/*  @ts-expect-error ignore error */}
           {projectOptions?.map((project) => (
             <SelectItem key={project.value} value={project.value}>
               {project.label}

@@ -11,6 +11,10 @@ export enum TaskStatus {
 export interface TaskFormWrapperProps {
   onCancel: () => void;
 }
+export interface EditTaskFormWrapperProps {
+  onCancel: () => void;
+  id: string;
+}
 
 export interface useGetTasksProps {
   workspaceId: string;
@@ -19,6 +23,9 @@ export interface useGetTasksProps {
   search?: string | null;
   assigneeId?: string | null;
   dueDate?: string | null;
+}
+export interface useGetTaskProps {
+  taskId: string;
 }
 
 export interface DataFiltersProps {
@@ -44,4 +51,8 @@ export interface TaskActionsProps {
   id: string;
   projectId: string;
   children: React.ReactNode;
+}
+
+export interface DataKanbanProps {
+  data: Task[];
 }

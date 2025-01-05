@@ -1,14 +1,22 @@
 import { Loader } from "lucide-react";
 
+import { Card, CardContent } from "@/components/ui/card";
 import { useGetMembers } from "@/features/members/membersApiHooks/useGetMembers";
 import { useGetProjects } from "@/features/projects/hooks/projectsApi/useGetProjects";
 import { useWorkSpacesId } from "@/features/workspaces/hooks/workspaceParam/useWorkSpaceParam";
-import { TaskFormWrapperProps } from "@/types/taskTypes/types";
-import { Card, CardContent } from "@/components/ui/card";
-import { CreateTaskForm } from "./CreateTaskForm";
+import { EditTaskFormWrapperProps } from "@/types/taskTypes/types";
+import { useGetTask } from "../hooks/taskApi/useGetTask";
+import { EditTaskForm } from "./EditTaskForm";
 
-export function TaskFormWrapper({ onCancel }: TaskFormWrapperProps) {
+export function EditTaskFormWrapper({
+  onCancel,
+  id,
+}: EditTaskFormWrapperProps) {
   const workspaceId = useWorkSpacesId();
+
+  const { data: taskInitialValues, isLoading: loadingTask } = useGetTask({
+    taskId: id,
+  });
 
   const { data: Projects, isLoading: loadingProjects } = useGetProjects({
     workspaceId,
@@ -18,24 +26,18 @@ export function TaskFormWrapper({ onCancel }: TaskFormWrapperProps) {
   });
 
   // @ts-expect-error ignore error
-  const projectOptions = Projects?.data.documents.map(
-    // @ts-expect-error ignore error
-    (project) => ({
-      id: project.$id,
-      name: project.name,
-      imageUrl: project.imageUrl,
-    })
-  );
-
-
+  const projectOptions = Projects?.data.documents.map((project) => ({
+    id: project.$id,
+    name: project.name,
+    imageUrl: project.imageUrl,
+  }));
 
   const memberOptions = members?.data.documents.map((member) => ({
     id: member.$id,
     name: member.name,
   }));
- 
 
-  const loading = loadingProjects || loadingMembers;
+  const loading = loadingProjects || loadingMembers || loadingTask;
 
   if (loading) {
     return (
@@ -47,12 +49,18 @@ export function TaskFormWrapper({ onCancel }: TaskFormWrapperProps) {
     );
   }
 
+  if (!taskInitialValues) {
+    return null;
+  }
+
   return (
     <div>
-      <CreateTaskForm
+      <EditTaskForm
         onCancel={onCancel}
         projectOptions={projectOptions || []}
         memberOptions={memberOptions || []}
+        // @ts-expect-error ignore error
+        taskInitialValues={taskInitialValues}
       />
     </div>
   );
