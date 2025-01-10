@@ -42,6 +42,7 @@ export type Task = Models.Document & {
   status: TaskStatus;
   position: number;
   dueDate: string;
+  description?: string;
 };
 
 export interface TaskDateProps {
@@ -97,7 +98,7 @@ export interface TaskBreadCrumbsProps {
   task: Task;
 }
 
-export interface TaskOverViewProps {
+export interface TaskOverViewAndDescriptionProps {
   task: Task;
 }
 

@@ -26,7 +26,7 @@ import { cn } from "@/lib/utils";
 
 import { useConfirmationModal } from "@/components/ConfirmationModal";
 import { Project } from "@/types/projectTypes/types";
-import { useUpdateProject } from "../hooks/projectsApi/useUpdateProjects";
+import { useUpdateProject } from "../hooks/projectsApi/useUpdateProject";
 import { useDeleteProject } from "../hooks/projectsApi/useDeleteProject";
 
 interface ProjectFormProps {

@@ -17,7 +17,3 @@ export interface ProjectIdProps {
 export interface GetProjectProps {
   projectId: string;
 }
-
-export interface ProjectIdParamsProps {
-  params: { projectId: string };
-}

@@ -1,7 +1,7 @@
 import { useParams } from "next/navigation";
 
-export function useTaskId() {
+export function useProjectId() {
   const param = useParams();
 
-  return param.taskId as string;
+  return param.projectId as string;
 }
