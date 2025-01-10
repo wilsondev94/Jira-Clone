@@ -38,7 +38,7 @@ export type Task = Models.Document & {
   assigneeId: string;
   workspaceId: string;
   status: TaskStatus;
-  position: string;
+  position: number;
   dueDate: string;
 };
 
@@ -54,5 +54,21 @@ export interface TaskActionsProps {
 }
 
 export interface DataKanbanProps {
+  data: Task[];
+  onChange: (
+    task: { $id: string; status: TaskStatus; position: number }[]
+  ) => void;
+}
+
+export interface KanbanColumnHeaderProps {
+  board: TaskStatus;
+  taskCount: number;
+}
+
+export interface KanbanCardProps {
+  task: Task;
+}
+
+export interface DataCalendarProps {
   data: Task[];
 }

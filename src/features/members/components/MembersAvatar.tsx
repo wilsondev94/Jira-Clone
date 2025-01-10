@@ -1,6 +1,6 @@
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
-import { MembersAvatarProps } from "../../../types/memberTypes/type";
+import { MembersAvatarProps } from "@/types/memberTypes/type";
 
 export const MemberAvatar = ({
   name,
@@ -20,7 +20,7 @@ export const MemberAvatar = ({
           fallbackClassName
         )}
       >
-        {name.charAt(0).toUpperCase()}
+        {name?.charAt(0).toUpperCase()}
       </AvatarFallback>
     </Avatar>
   );

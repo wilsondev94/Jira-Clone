@@ -6,7 +6,11 @@ import {
   PROJECTS_COLLECTION_ID,
   TASKS_COLLECTION_ID,
 } from "@/lib/appwriteConstants";
-import { createTaskSchema, getTaskSchema } from "@/lib/schemas";
+import {
+  BUlkUpdateSchema,
+  createTaskSchema,
+  getTaskSchema,
+} from "@/lib/schemas";
 import { sessionMiddleware } from "@/lib/sessionMiddleware";
 import { Project } from "@/types/projectTypes/types";
 import { Task } from "@/types/taskTypes/types";
@@ -321,6 +325,72 @@ const app = new Hono()
     return c.json({
       data: { $id: task.$id },
     });
-  });
+  })
+  .post(
+    "/bulk-update",
+    sessionMiddleware,
+    zValidator("json", BUlkUpdateSchema),
+    async (c) => {
+      const user = c.get("user");
+      const databases = c.get("databases");
+      const { tasks } = await c.req.valid("json");
+
+      const tasksToUpdate = await databases.listDocuments<Task>(
+        DATABASE_ID,
+        TASKS_COLLECTION_ID,
+        [
+          Query.contains(
+            "$id",
+            tasks.map((task) => task.$id)
+          ),
+        ]
+      );
+
+      const workspaceId = tasksToUpdate.documents.map(
+        (task) => task.workspaceId
+      );
+
+      // const workspaceIds = new Set(
+      //   tasksToUpdate.documents.map((task) => task.workspaceId)
+      // );
+      // console.log("workspaceIds:", workspaceIds);
+
+      // if (workspaceIds.size !== 1) {
+      //   return c.json({
+      //     error: "All tasks must belong to the same workspace",
+      //   });
+      // }
+
+      // const workspaceId = workspaceIds?.values().next().value;
+
+      const member = await getMember({
+        databases,
+        // @ts-expect-error ignore error
+        workspaceId,
+        userId: user.$id,
+      });
+
+      if (!member) {
+        return c.json({ error: "Unauthorized!" }, 401);
+      }
+
+      const updatedTask = await Promise.all(
+        tasks.map(async (task) => {
+          const { $id, status, position } = task;
+
+          return databases.updateDocument<Task>(
+            DATABASE_ID,
+            TASKS_COLLECTION_ID,
+            $id,
+            { status, position }
+          );
+        })
+      );
+
+      console.log("updatedTask:", updatedTask);
+
+      return c.json({ data: updatedTask });
+    }
+  );
 
 export default app;
