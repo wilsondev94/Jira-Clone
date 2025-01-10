@@ -8,14 +8,14 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "./ui/select";
+} from "@/components/ui/select";
 import { WorkspaceAvatar } from "@/features/workspaces/components/WorkspaceAvatar";
 import { useRouter } from "next/navigation";
 import { useWorkSpacesId } from "@/features/workspaces/hooks/workspaceParam/useWorkSpaceParam";
 import { useWorkspaceModal } from "@/features/workspaces/hooks/useCreateWorkspaceModal/useWorkspaceModal";
 import { useGetWorkspaces } from "@/features/workspaces/hooks/workspacesApi/useGetWorkspaces";
 
-export default function WorkspaceSwitcher() {
+export default function WorkspaceView() {
   const router = useRouter();
   const workspsceId = useWorkSpacesId();
   const { open } = useWorkspaceModal();

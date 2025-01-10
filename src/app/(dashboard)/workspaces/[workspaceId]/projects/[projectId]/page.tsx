@@ -41,7 +41,7 @@ export default async function ProjectPage({ params }: ProjectIdProps) {
           </Button>
         </div>
       </div>
-      <TaskViews />
+      <TaskViews hideProjectFilter />
     </div>
   );
 }

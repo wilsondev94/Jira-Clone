@@ -87,3 +87,21 @@ export interface CustomToolbarProps {
   date: Date;
   onNavigate: (action: "PREVIOUS" | "NEXT" | "TODAY") => void;
 }
+
+export interface ErrorpageProps {
+  message: string;
+}
+
+export interface TaskBreadCrumbsProps {
+  project: Project;
+  task: Task;
+}
+
+export interface TaskOverViewProps {
+  task: Task;
+}
+
+export interface OverViewPropertyProps {
+  label: string;
+  children: React.ReactNode;
+}

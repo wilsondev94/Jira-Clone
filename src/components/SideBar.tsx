@@ -2,8 +2,9 @@ import { DottedSeparator } from "@/components/DottedSeparator";
 import Image from "next/image";
 import Link from "next/link";
 import { Navigation } from "./Navigation";
-import WorkspaceSwitcher from "./Workspace";
+
 import { Projects } from "./Projects";
+import WorkspaceView from "@/features/workspaces/components/WorkspaceView";
 
 export function SideBar() {
   return (
@@ -13,7 +14,7 @@ export function SideBar() {
       </Link>
       <DottedSeparator clasName="my-4 " />
 
-      <WorkspaceSwitcher />
+      <WorkspaceView />
       <DottedSeparator clasName="my-4 " />
       <Navigation />
       <DottedSeparator clasName="my-4 " />

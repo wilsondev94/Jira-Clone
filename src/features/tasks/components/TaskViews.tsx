@@ -14,13 +14,15 @@ import { DataTable } from "./DataTable";
 import { Columns } from "./Column";
 import { DataKanban } from "./DataKanban";
 import { useCallback } from "react";
-import { TaskStatus } from "@/types/taskTypes/types";
+import { DataFiltersProps, TaskStatus } from "@/types/taskTypes/types";
 import { useBulkUpdateTask } from "../hooks/taskApi/useBulkUpdateTask";
 import { DataCalendar } from "./DataCalendar";
 
-export default function TaskView() {
+export default function TaskView({ hideProjectFilter }: DataFiltersProps) {
   const [view, setView] = useQueryState("task-view", { defaultValue: "table" });
+
   const [{ status, assigneeId, projectId, dueDate }] = useTaskFilter();
+  console.log(status);
 
   const workspaceId = useWorkSpacesId();
 
@@ -74,7 +76,7 @@ export default function TaskView() {
           </Button>
         </div>
         <DottedSeparator clasName="my-4" />
-        <DataFilters />
+        <DataFilters hideProjectFilter={!hideProjectFilter} />
         <DottedSeparator clasName="my-4" />
         {loadingTask ? (
           <div className=" w-full border rounded-lg h-[200px] flex flex-col items-center justify-center">
@@ -85,12 +87,14 @@ export default function TaskView() {
             <TabsContent value="table" className="mt-0">
               <DataTable columns={Columns} data={tasks?.data.documents ?? []} />
             </TabsContent>
+
             <TabsContent value="kanban" className="mt-0">
               <DataKanban
                 data={tasks?.data.documents ?? []}
                 onChange={onKanbanChange}
               />
             </TabsContent>
+
             <TabsContent value="calendar" className="mt-0">
               <DataCalendar data={tasks?.data.documents ?? []} />
             </TabsContent>

@@ -31,6 +31,7 @@ export default function DataFilters({ hideProjectFilter }: DataFiltersProps) {
     value: project.$id,
     label: project.name,
   }));
+
   const memberOptions = members?.data.documents.map((member) => ({
     value: member.$id,
     label: member.name,
@@ -95,27 +96,30 @@ export default function DataFilters({ hideProjectFilter }: DataFiltersProps) {
           ))}
         </SelectContent>
       </Select>
-      <Select
-        defaultValue={projectId || undefined}
-        onValueChange={(value) => onProjectChange(value)}
-      >
-        <SelectTrigger className=" w-full h-8 lg:w-auto">
-          <div className="flex items-center pr-2">
-            <FolderIcon className=" size-4 mr-2" />
-            <SelectValue placeholder="All projects" />
-          </div>
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="all">All projects</SelectItem>
-          <SelectSeparator />
-          {/*  @ts-expect-error ignore error */}
-          {projectOptions?.map((project) => (
-            <SelectItem key={project.value} value={project.value}>
-              {project.label}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+
+      {hideProjectFilter && (
+        <Select
+          defaultValue={projectId || undefined}
+          onValueChange={(value) => onProjectChange(value)}
+        >
+          <SelectTrigger className=" w-full h-8 lg:w-auto">
+            <div className="flex items-center pr-2">
+              <FolderIcon className=" size-4 mr-2" />
+              <SelectValue placeholder="All projects" />
+            </div>
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All projects</SelectItem>
+            <SelectSeparator />
+            {/*  @ts-expect-error ignore error */}
+            {projectOptions?.map((project) => (
+              <SelectItem key={project.value} value={project.value}>
+                {project.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      )}
 
       <DatePicker
         placeholder="Due date"

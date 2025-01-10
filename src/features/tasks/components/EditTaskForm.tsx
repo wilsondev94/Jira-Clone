@@ -44,7 +44,6 @@ export function EditTaskForm({
   projectOptions,
   taskInitialValues,
 }: TaskFormProps) {
-  console.log(taskInitialValues);
   const { mutate, isPending } = useUpdateTask();
 
   const form = useForm<z.infer<typeof createTaskSchema>>({

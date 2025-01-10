@@ -136,29 +136,13 @@ const app = new Hono()
       const projects = await databases.listDocuments<Project>(
         DATABASE_ID,
         PROJECTS_COLLECTION_ID,
-        projectIds.length > 0
-          ? [
-              Query.contains(
-                "$id",
-
-                projectIds
-              ),
-            ]
-          : []
+        projectIds.length > 0 ? [Query.contains("$id", projectIds)] : []
       );
 
       const members = await databases.listDocuments(
         DATABASE_ID,
         MEMBERS_COLLECTION_ID,
-        assigneeIds.length > 0
-          ? [
-              Query.contains(
-                "$id",
-
-                assigneeIds
-              ),
-            ]
-          : []
+        assigneeIds.length > 0 ? [Query.contains("$id", assigneeIds)] : []
       );
 
       const assignees = await Promise.all(

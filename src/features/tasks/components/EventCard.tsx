@@ -27,7 +27,7 @@ export function EventCard({
   function onClick(e: React.MouseEvent<HTMLDivElement>) {
     e.stopPropagation();
 
-    router.push(`worspace/${workspaceId}/tasks/${id}`);
+    router.push(`/workspaces/${workspaceId}/tasks/${id}`);
   }
 
   return (
