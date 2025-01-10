@@ -14,7 +14,10 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 
 import "./dataCalendar.css";
 
-import { DataCalendarProps } from "@/types/taskTypes/types";
+import { CustomToolbarProps, DataCalendarProps } from "@/types/taskTypes/types";
+import { EventCard } from "./EventCard";
+import { Button } from "@/components/ui/button";
+import { CalendarIcon, ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 
 const locales = {
   "en-US": enUS,
@@ -72,6 +75,47 @@ export function DataCalendar({ data }: DataCalendarProps) {
         weekdayFormat: (date, culture, localizer) =>
           localizer?.format(date, "EEE", culture) ?? "",
       }}
+      components={{
+        eventWrapper: ({ event }) => (
+          <EventCard
+            id={event.id}
+            title={event.title}
+            assignee={event.assignee}
+            project={event.project}
+            status={event.status}
+          />
+        ),
+
+        toolbar: () => (
+          <CustomToolbar date={value} onNavigate={handleNavigate} />
+        ),
+      }}
     />
+  );
+}
+
+export function CustomToolbar({ date, onNavigate }: CustomToolbarProps) {
+  return (
+    <div className="flex mb-4 gap-x-2 items-center justify-center w-full lg:w-auto lg:justify-start ">
+      <Button
+        onClick={() => onNavigate("PREVIOUS")}
+        variant="secondary"
+        size="icon"
+      >
+        <ChevronLeftIcon className=" size-4 " />
+      </Button>
+      <div className="flex items-center border border-input rounded-md px-3 py-2 h-8 justify-center w-full lg:w-auto">
+        <CalendarIcon className=" size-4 mr-2 " />
+        <p className="text-sm ">{format(date, "MM yyyy")}</p>
+      </div>
+
+      <Button
+        onClick={() => onNavigate("NEXT")}
+        variant="secondary"
+        size="icon"
+      >
+        <ChevronRightIcon className=" size-4 " />
+      </Button>
+    </div>
   );
 }

@@ -1,9 +1,5 @@
 .rbc-header {
-  @apply text-sm;
-  @apply font-normal;
-  @apply pb-4;
-  @apply text-muted-foreground;
-  @apply border-b-0;
+  @apply text-sm font-normal pb-4 text-muted-foreground border-b-0 mt-3;
 }
 
 .rbc-header + .rbc-header {
@@ -20,8 +16,25 @@
 
 /* Equivalent of ":first-of-type" */
 :not(.rbc-month-row ~ .rbc-month-row).rbc-month-row {
+  @apply rounded-t-md;
 }
 
 .rbc-month-row:last-of-type {
   @apply border-b rounded-b-md;
+}
+
+.rbc-month-view {
+  @apply border-none;
+}
+
+.rbc-date-cell {
+  @apply p-2;
+}
+
+.rbc-today {
+  @apply to-blue-200;
+}
+
+.rbc-off-range-bg {
+  @apply bg-neutral-200;
 }

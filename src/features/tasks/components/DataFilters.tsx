@@ -54,7 +54,7 @@ export default function DataFilters({ hideProjectFilter }: DataFiltersProps) {
   if (loading) return null;
 
   return (
-    <div className=" flex flex-col lg:flex- gap-2">
+    <div className=" flex flex-col lg:flex-row gap-2">
       <Select
         defaultValue={status || undefined}
         onValueChange={(value) => onStatusChange(value)}

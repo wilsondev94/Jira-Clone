@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Models } from "node-appwrite";
+import { Project } from "../projectTypes/types";
 
 export enum TaskStatus {
   BACKLOG = "BACKLOG",
@@ -71,4 +73,17 @@ export interface KanbanCardProps {
 
 export interface DataCalendarProps {
   data: Task[];
+}
+
+export interface EventCardProps {
+  title: string;
+  project: Project;
+  assignee: any;
+  status: TaskStatus;
+  id: string;
+}
+
+export interface CustomToolbarProps {
+  date: Date;
+  onNavigate: (action: "PREVIOUS" | "NEXT" | "TODAY") => void;
 }
