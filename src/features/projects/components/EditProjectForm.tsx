@@ -64,15 +64,10 @@ export function EditProjectForm({ onCancel, initialValues }: ProjectFormProps) {
       image: (values.image instanceof File && values.image) || "",
     };
 
-    updateProject(
-      { form: finalFileValue, param: { projectId: initialValues.$id } },
-      {
-        onSuccess: () => {
-          form.reset();
-          router.push("/");
-        },
-      }
-    );
+    updateProject({
+      form: finalFileValue,
+      param: { projectId: initialValues.$id },
+    });
   }
 
   async function handleDelete() {

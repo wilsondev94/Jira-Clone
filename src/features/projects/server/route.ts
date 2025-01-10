@@ -1,20 +1,19 @@
+import { getMember } from "@/features/members/membersUtils";
 import {
   BUCKET_ID,
   DATABASE_ID,
   PROJECTS_COLLECTION_ID,
-  TASKS_COLLECTION_ID,
 } from "@/lib/appwriteConstants";
-import { getMember } from "@/features/members/membersUtils";
 import {
   createProjectSchema,
   projectsSchema,
   UpdateSchema,
 } from "@/lib/schemas";
 import { sessionMiddleware } from "@/lib/sessionMiddleware";
+import { Project } from "@/types/projectTypes/types";
 import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
 import { ID, Query } from "node-appwrite";
-import { Project } from "@/types/projectTypes/types";
 
 const app = new Hono()
   .get(

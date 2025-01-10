@@ -6,20 +6,30 @@ import { Button } from "@/components/ui/button";
 import { useUpdateTask } from "../hooks/taskApi/useUpdateTask";
 import { TaskOverViewAndDescriptionProps } from "@/types/taskTypes/types";
 import { Textarea } from "@/components/ui/textarea";
+import { useRouter } from "next/navigation";
 
 export default function TaskDescription({
   task,
 }: TaskOverViewAndDescriptionProps) {
+  const router = useRouter();
   const [isEditing, setIsEditing] = useState(false);
   const [value, setValue] = useState(task.description);
 
   const { mutate: updateTask, isPending: isUpdating } = useUpdateTask();
 
   function handleEdit() {
-    updateTask({
-      json: { description: value },
-      param: { taskId: task.$id },
-    });
+    updateTask(
+      {
+        json: { description: value },
+        param: { taskId: task.$id },
+      },
+      {
+        onSuccess: () => {
+          setIsEditing(false);
+          router.refresh();
+        },
+      }
+    );
   }
 
   return (

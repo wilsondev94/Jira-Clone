@@ -39,7 +39,9 @@ export function EditWorkspaceForm({
   initialValues,
 }: WorkspaceFormProps) {
   const router = useRouter();
+
   const inputRef = useRef<HTMLInputElement>(null);
+
   const { mutate: updateWorkspace, isPending: isUpdatingWorkspace } =
     useUpdateWorkspace();
 
@@ -54,6 +56,7 @@ export function EditWorkspaceForm({
     "This action cannot be undone",
     "destructive"
   );
+
   const [ResetModal, confirmReset] = useConfirmationModal(
     "Reset invite link",
     "this will change the current invite link.",
@@ -86,6 +89,7 @@ export function EditWorkspaceForm({
       }
     );
   }
+
   async function handleReset() {
     const ok = await confirmReset();
     if (!ok) return;
@@ -103,14 +107,10 @@ export function EditWorkspaceForm({
       image: (values.image instanceof File && values.image) || "",
     };
 
-    updateWorkspace(
-      { form: finalFileValue, param: { workspaceId: initialValues.$id } },
-      {
-        onSuccess: () => {
-          form.reset();
-        },
-      }
-    );
+    updateWorkspace({
+      form: finalFileValue,
+      param: { workspaceId: initialValues.$id },
+    });
   }
 
   function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
