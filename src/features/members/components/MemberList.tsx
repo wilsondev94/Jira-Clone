@@ -29,17 +29,17 @@ export function MemberList({ members, total }: ProjectListProps) {
         </div>
         <DottedSeparator clasName="my-4" />
         <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {members.map((project) => (
-            <li key={project.id}>
+          {members.map((member) => (
+            <li key={member.id}>
               <Card className="shadow-none rounded-lg overflow-hidden ">
                 <CardContent className="p-3 flex items-center gap-x-2">
-                  <MemberAvatar name={project.name} className="size-12" />
+                  <MemberAvatar name={member.name} className="size-12" />
                   <div className="flex flex-col items-center overflow-hidden">
                     <p className="text-lg font-medium line-clamp-1">
-                      {project.name}
+                      {member.name}
                     </p>
-                    <p className="text-sm text-muted-foreground font-medium line-clamp-1">
-                      {project.email}
+                    <p className="text-sm text-muted-foreground font-medium line-clamp-1 mr-7">
+                      {member.email}
                     </p>
                   </div>
                 </CardContent>

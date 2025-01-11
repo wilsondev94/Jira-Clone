@@ -1,5 +1,5 @@
 import { getCurrent } from "@/features/auth/actions";
-import { SignUpCard } from "@/features/auth/components/SignUpPage ";
+import { SignUpCard } from "@/features/auth/components/SignUpPageCard ";
 import { redirect } from "next/navigation";
 
 export default async function SignUPage() {
