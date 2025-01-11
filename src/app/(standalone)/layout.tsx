@@ -14,8 +14,8 @@ function StandaloneLayout({ children }: StandaloneLayout) {
           <Link href="/">
             <Image
               src="/icon/jiraclone2.svg"
-              height={50}
-              width={50}
+              height={38}
+              width={38}
               alt="Logo"
             />
           </Link>
