@@ -50,7 +50,6 @@ const app = new Hono()
           Query.limit(1),
         ]
       );
-   
 
       const newPosition =
         highestPositionTask.documents.length > 0
@@ -330,14 +329,13 @@ const app = new Hono()
         ]
       );
 
-      const workspaceId = tasksToUpdate.documents.map(
+      const workspaceIds = tasksToUpdate.documents.map(
         (task) => task.workspaceId
       );
 
       // const workspaceIds = new Set(
       //   tasksToUpdate.documents.map((task) => task.workspaceId)
       // );
-      // console.log("workspaceIds:", workspaceIds);
 
       // if (workspaceIds.size !== 1) {
       //   return c.json({
@@ -345,11 +343,14 @@ const app = new Hono()
       //   });
       // }
 
-      // const workspaceId = workspaceIds?.values().next().value;
+      const workspaceId = workspaceIds?.values().next().value;
+
+      if (!workspaceId) {
+        return c.json({ error: "workspace ID is required" }, 400);
+      }
 
       const member = await getMember({
         databases,
-        // @ts-expect-error ignore error
         workspaceId,
         userId: user.$id,
       });
@@ -370,8 +371,6 @@ const app = new Hono()
           );
         })
       );
-
-     
 
       return c.json({ data: updatedTask });
     }

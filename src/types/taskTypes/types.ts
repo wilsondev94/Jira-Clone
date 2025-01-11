@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Models } from "node-appwrite";
 import { Project } from "../projectTypes/types";
+import { Member } from "../memberTypes/type";
 
 export enum TaskStatus {
   BACKLOG = "BACKLOG",
@@ -79,7 +79,7 @@ export interface DataCalendarProps {
 export interface EventCardProps {
   title: string;
   project: Project;
-  assignee: any;
+  assignee: Member;
   status: TaskStatus;
   id: string;
 }

@@ -17,6 +17,7 @@ import { useCallback } from "react";
 import { DataFiltersProps, TaskStatus } from "@/types/taskTypes/types";
 import { useBulkUpdateTask } from "../hooks/taskApi/useBulkUpdateTask";
 import { DataCalendar } from "./DataCalendar";
+import { useProjectId } from "@/features/projects/hooks/ProjectIdParam/useProjectId";
 
 export default function TaskView({ hideProjectFilter }: DataFiltersProps) {
   const [view, setView] = useQueryState("task-view", { defaultValue: "table" });
@@ -24,13 +25,14 @@ export default function TaskView({ hideProjectFilter }: DataFiltersProps) {
   const [{ status, assigneeId, projectId, dueDate }] = useTaskFilter();
 
   const workspaceId = useWorkSpacesId();
+  const paramProjectId = useProjectId();
 
   const { data: tasks, isLoading: loadingTask } = useGetTasks({
     workspaceId,
     // @ts-expect-error ignore error
     status,
+    projectId: paramProjectId || projectId,
     assigneeId,
-    projectId,
     dueDate,
   });
 
