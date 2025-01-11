@@ -20,8 +20,7 @@ export const useLogout = () => {
     onSuccess: () => {
       toast.success("Logout Successful.");
       window.location.href = "/sign-in";
-      queryClient.invalidateQueries({ queryKey: ["current"] });
-      queryClient.invalidateQueries({ queryKey: ["workspaces"] });
+      queryClient.invalidateQueries();
     },
     onError: () => {
       toast.error("Logout Failed.");
