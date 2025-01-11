@@ -22,7 +22,6 @@ export default function TaskView({ hideProjectFilter }: DataFiltersProps) {
   const [view, setView] = useQueryState("task-view", { defaultValue: "table" });
 
   const [{ status, assigneeId, projectId, dueDate }] = useTaskFilter();
-  console.log(status);
 
   const workspaceId = useWorkSpacesId();
 

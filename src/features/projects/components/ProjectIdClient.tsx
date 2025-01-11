@@ -10,21 +10,27 @@ import { useGetProject } from "../hooks/projectsApi/useGetProject";
 import { ProjectAvatar } from "./ProjectAvatar";
 import LoaderPage from "@/components/LoaderPage";
 import ErrorPage from "@/components/ErrorPage";
+import { useGetProjectAnalytics } from "../hooks/projectsApi/useGetProjectAnalytics";
+import { ProjectAnalytics } from "./ProjectAnalytics";
 
 export function ProjectIdClient() {
   const projectId = useProjectId();
 
-  const { data, isLoading } = useGetProject({
+  const { data: project, isLoading: isLoadingProject } = useGetProject({
     projectId: projectId,
   });
+  const initialValues = project?.data;
 
-  const initialValues = data?.data;
+  const { data: analytics, isLoading: isLoadingAnalytics } =
+    useGetProjectAnalytics({ projectId });
+
+  const isLoading = isLoadingProject || isLoadingAnalytics;
 
   if (isLoading) {
     return <LoaderPage />;
   }
 
-  if (!initialValues) {
+  if (!initialValues || !analytics) {
     return <ErrorPage message="Project not found!" />;
   }
 
@@ -52,6 +58,9 @@ export function ProjectIdClient() {
           </Button>
         </div>
       </div>
+
+      {analytics && <ProjectAnalytics data={analytics?.data} />}
+
       <TaskView hideProjectFilter />
     </div>
   );

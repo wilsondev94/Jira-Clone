@@ -50,7 +50,7 @@ const app = new Hono()
           Query.limit(1),
         ]
       );
-      console.log(highestPositionTask);
+   
 
       const newPosition =
         highestPositionTask.documents.length > 0
@@ -371,7 +371,7 @@ const app = new Hono()
         })
       );
 
-      console.log("updatedTask:", updatedTask);
+     
 
       return c.json({ data: updatedTask });
     }

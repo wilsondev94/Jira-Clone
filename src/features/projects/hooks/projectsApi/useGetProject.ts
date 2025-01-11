@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { client } from "@/lib/rpc";
-import { GetProjectProps } from "@/types/projectTypes/types";
+import { GetProjectIdProps } from "@/types/projectTypes/types";
 
-export function useGetProject({ projectId }: GetProjectProps) {
+export function useGetProject({ projectId }: GetProjectIdProps) {
   const query = useQuery({
     queryKey: ["project", projectId],
 

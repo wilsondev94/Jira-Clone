@@ -24,7 +24,7 @@ const statusIconMap: Record<TaskStatus, React.ReactNode> = {
     <CircleDotIcon className=" size-[18px] text-blue-400" />
   ),
   [TaskStatus.DONE]: (
-    <CircleCheckIcon className=" size-[18px] text-emrald-400" />
+    <CircleCheckIcon className=" size-[18px] text-emerald-400" />
   ),
 };
 

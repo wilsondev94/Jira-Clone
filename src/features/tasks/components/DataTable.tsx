@@ -55,8 +55,6 @@ export function DataTable<TData, TValue>({
     },
   });
 
-  console.log(table.getRowModel());
-
   return (
     <div>
       <div className="flex items-center py-4">
