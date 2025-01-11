@@ -6,7 +6,7 @@ import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
 import { Query } from "node-appwrite";
 import { getMember } from "../membersUtils";
-import { MemberRole } from "../../../types/memberTypes/type";
+import { Member, MemberRole } from "../../../types/memberTypes/type";
 
 const app = new Hono()
   .get("/", sessionMiddleware, zValidator("query", MemberSchema), async (c) => {
@@ -30,7 +30,7 @@ const app = new Hono()
       return c.json({ error: "Unauthorized!" }, 401);
     }
 
-    const members = await databases.listDocuments(
+    const members = await databases.listDocuments<Member>(
       DATABASE_ID,
       MEMBERS_COLLECTION_ID,
       [Query.equal("workspaceId", workspaceId)]

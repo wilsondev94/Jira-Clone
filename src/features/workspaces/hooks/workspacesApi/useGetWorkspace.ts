@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { client } from "@/lib/rpc";
-import { GetWorkspaceProps } from "@/types/workspaceTypes/types";
+import { GetWorkspaceIdProps } from "@/types/workspaceTypes/types";
 
-export function useGetWorkspace({ workspaceId }: GetWorkspaceProps) {
+export function useGetWorkspace({ workspaceId }: GetWorkspaceIdProps) {
   const query = useQuery({
     queryKey: ["workspace", workspaceId],
 
@@ -15,7 +15,7 @@ export function useGetWorkspace({ workspaceId }: GetWorkspaceProps) {
       if (!res.ok) throw new Error("Failed to fetch workspace");
       const data = await res.json();
 
-      return data
+      return data;
     },
   });
 

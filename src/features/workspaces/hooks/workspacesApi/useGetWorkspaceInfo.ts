@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { client } from "@/lib/rpc";
-import { GetWorkspaceProps } from "@/types/workspaceTypes/types";
+import { GetWorkspaceIdProps } from "@/types/workspaceTypes/types";
 
-export function useGetWorkspaceInfo({ workspaceId }: GetWorkspaceProps) {
+export function useGetWorkspaceInfo({ workspaceId }: GetWorkspaceIdProps) {
   const query = useQuery({
     queryKey: ["workspace-info", workspaceId],
 

@@ -14,7 +14,7 @@ interface ProjectAnalyticsCardProps {
   increaseValue: number;
 }
 
-export default function ProjectAnalyticsCard({
+export default function AnalyticsCard({
   title,
   value,
   variant,

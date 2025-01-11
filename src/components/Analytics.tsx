@@ -1,14 +1,15 @@
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { ResponseProjectAnalyticsType } from "../hooks/projectsApi/useGetProjectAnalytics";
-import ProjectAnalyticsCard from "./ProjectAnalyticsCard";
-import { DottedSeparator } from "@/components/DottedSeparator";
 
-export function ProjectAnalytics({ data }: ResponseProjectAnalyticsType) {
+import { DottedSeparator } from "@/components/DottedSeparator";
+import AnalyticsCard from "./AnalyticsCard";
+import { ResponseProjectAnalyticsType } from "@/features/projects/hooks/projectsApi/useGetProjectAnalytics";
+
+export function Analytics({ data }: ResponseProjectAnalyticsType) {
   return (
     <ScrollArea className="border rounded-lg w-full whitespace-nowrap shrink-0">
       <div className="w-full flex flex-row">
         <div className="flex items-center flex-1">
-          <ProjectAnalyticsCard
+          <AnalyticsCard
             title="Total task"
             value={data.taskCount}
             variant={data.taskDifference > 0 ? "up" : "down"}
@@ -19,7 +20,7 @@ export function ProjectAnalytics({ data }: ResponseProjectAnalyticsType) {
         <DottedSeparator direction="vertical" />
 
         <div className="flex items-center flex-1">
-          <ProjectAnalyticsCard
+          <AnalyticsCard
             title="Assigned task"
             value={data.assignedTaskCount}
             variant={data.assignedTaskDifference > 0 ? "up" : "down"}
@@ -30,7 +31,7 @@ export function ProjectAnalytics({ data }: ResponseProjectAnalyticsType) {
         <DottedSeparator direction="vertical" />
 
         <div className="flex items-center flex-1">
-          <ProjectAnalyticsCard
+          <AnalyticsCard
             title="Completed task"
             value={data.completedTaskCount}
             variant={data.completedTaskDifference > 0 ? "up" : "down"}
@@ -41,7 +42,7 @@ export function ProjectAnalytics({ data }: ResponseProjectAnalyticsType) {
         <DottedSeparator direction="vertical" />
 
         <div className="flex items-center flex-1">
-          <ProjectAnalyticsCard
+          <AnalyticsCard
             title="Overdue task"
             value={data.overdueTaskCount}
             variant={data.overdueTaskDifference > 0 ? "up" : "down"}
@@ -52,7 +53,7 @@ export function ProjectAnalytics({ data }: ResponseProjectAnalyticsType) {
         <DottedSeparator direction="vertical" />
 
         <div className="flex items-center flex-1">
-          <ProjectAnalyticsCard
+          <AnalyticsCard
             title="Incomplete task"
             value={data.incompleteTaskCount}
             variant={data.incompleteTaskDifference > 0 ? "up" : "down"}

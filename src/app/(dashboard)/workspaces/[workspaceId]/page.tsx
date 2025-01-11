@@ -1,13 +1,13 @@
 import { getCurrent } from "@/features/auth/actions";
-import { WorkspaceIdProps } from "@/types/workspaceTypes/types";
+import { WorkspaceIdClient } from "@/features/workspaces/components/WorkspaceIdClient";
 import { redirect } from "next/navigation";
 
-async function WorkSpaceIdPage({ params }: WorkspaceIdProps) {
+async function WorkSpaceIdPage() {
   const user = await getCurrent();
 
   if (!user) redirect("/sign-in");
 
-  return <div>WorkspaceId: {params.workspaceId}</div>;
+  return <WorkspaceIdClient />;
 }
 
 export default WorkSpaceIdPage;

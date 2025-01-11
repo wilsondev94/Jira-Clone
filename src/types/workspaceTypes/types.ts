@@ -7,14 +7,8 @@ export type Workspace = Models.Document & {
   userId: string;
 };
 
-export interface GetWorkspaceProps {
+export interface GetWorkspaceIdProps {
   workspaceId: string;
-}
-
-export interface WorkspaceIdProps {
-  params: {
-    workspaceId: string;
-  };
 }
 
 export interface JoinWorkspaceProps {

@@ -11,7 +11,8 @@ import { ProjectAvatar } from "./ProjectAvatar";
 import LoaderPage from "@/components/LoaderPage";
 import ErrorPage from "@/components/ErrorPage";
 import { useGetProjectAnalytics } from "../hooks/projectsApi/useGetProjectAnalytics";
-import { ProjectAnalytics } from "./ProjectAnalytics";
+import { Analytics } from "@/components/Analytics";
+
 
 export function ProjectIdClient() {
   const projectId = useProjectId();
@@ -59,7 +60,7 @@ export function ProjectIdClient() {
         </div>
       </div>
 
-      {analytics && <ProjectAnalytics data={analytics?.data} />}
+      {analytics && <Analytics data={analytics?.data} />}
 
       <TaskView hideProjectFilter />
     </div>

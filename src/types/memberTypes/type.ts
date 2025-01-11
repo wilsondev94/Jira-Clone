@@ -1,4 +1,4 @@
-import { type Databases } from "node-appwrite";
+import { Models, type Databases } from "node-appwrite";
 
 export enum MemberRole {
   ADMIN = "admin",
@@ -20,3 +20,9 @@ export interface MembersAvatarProps {
   className?: string;
   fallbackClassName?: string;
 }
+
+export type Member = Models.Document & {
+  workspaceId: string;
+  userId: string;
+  role: MemberRole;
+};

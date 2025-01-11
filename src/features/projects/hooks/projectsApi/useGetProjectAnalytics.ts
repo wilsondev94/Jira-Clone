@@ -21,7 +21,6 @@ export function useGetProjectAnalytics({ projectId }: GetProjectIdProps) {
       if (!res.ok) throw new Error("Failed to fetch project analytics");
 
       const data = await res.json();
-      console.log(data);
 
       return data;
     },

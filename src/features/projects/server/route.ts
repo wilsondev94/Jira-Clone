@@ -40,10 +40,10 @@ const app = new Hono()
       });
 
       if (!member) {
-        return c.json({ error: "Unauthorized request!" });
+        return c.json({ error: "Unauthorized!" }, 401);
       }
 
-      const projects = await databases.listDocuments(
+      const projects = await databases.listDocuments<Project>(
         DATABASE_ID,
         PROJECTS_COLLECTION_ID,
         [Query.equal("workspaceId", workspaceId), Query.orderDesc("$createdAt")]
