@@ -13,10 +13,10 @@ function StandaloneLayout({ children }: StandaloneLayout) {
         <nav className="flex justify-between items-center h-[73px] ">
           <Link href="/">
             <Image
-              src="/icon/jiraclone2.svg"
-              height={38}
-              width={38}
-              alt="Logo"
+              src="/icon/nijiral-01.svg"
+              height={55}
+              width={55}
+              alt="logo"
             />
           </Link>
           <UserButton />
