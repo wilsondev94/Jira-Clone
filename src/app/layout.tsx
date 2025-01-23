@@ -11,8 +11,11 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Jira Clone",
+  title: "Nijiral",
   description: "",
+  icons: {
+    icon: "/icon/nijira-2.png",
+  },
 };
 
 export default function RootLayout({
