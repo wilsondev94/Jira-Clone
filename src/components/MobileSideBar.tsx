@@ -5,16 +5,17 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { MenuIcon } from "lucide-react";
-import { SideBar } from "./SideBar";
 import { usePathname } from "next/navigation";
+import { SideBar } from "./SideBar";
 
 export function MobileSideBar() {
   const [isOpen, setIsOpen] = useState(false);
+
   const pathname = usePathname();
 
   useEffect(() => {
     setIsOpen(false);
-  }, [pathname]);
+  }, [pathname, setIsOpen]);
 
   return (
     <div>
@@ -24,7 +25,7 @@ export function MobileSideBar() {
             <MenuIcon className="size-4 text-neutral-500" />
           </Button>
         </SheetTrigger>
-        <SheetContent side="left" className="p-0">
+        <SheetContent side="left" className="p-0 w-80">
           <SideBar />
         </SheetContent>
       </Sheet>

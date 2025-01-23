@@ -23,7 +23,9 @@ export default function DashBoard({ children }: DashBoardProps) {
         <div className="lg:pl-[264px] w-full">
           <div className="mx-auto max-w-screen-2xl h-full">
             <NavBar />
-            <main className="h-full py-8 px-6 flex flex-col">{children}</main>
+            <main className="h-full py-8 px-6 mt-[60px] flex flex-col">
+              {children}
+            </main>
           </div>
         </div>
       </div>

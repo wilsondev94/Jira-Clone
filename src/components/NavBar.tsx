@@ -30,7 +30,7 @@ export function NavBar() {
   const { title, description } = pathMap[pathKey] || defaultPath;
 
   return (
-    <nav className="pt-4 px-6 flex items-center justify-between">
+    <nav className="fixed top-0 z-10 w-full shadow-sm xl:w-full bg-neutral-200 py-4 px-6 flex items-center justify-between">
       <div className="flex-col hidden lg:flex ">
         <h1 className="text-2xl font-semibold ">{title}</h1>
         <p className="text-muted-foreground">{description}</p>
